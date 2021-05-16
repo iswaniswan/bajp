@@ -18,7 +18,6 @@ class MainCoroutineRule(
     override fun starting(description: Description?) {
         super.starting(description)
         InstantTaskExecutorRule()
-        System.out.println("MainCoroutineRule starting executed")
         Dispatchers.setMain(dispatcher)
     }
 
@@ -26,6 +25,5 @@ class MainCoroutineRule(
         super.finished(description)
         cleanupTestCoroutines()
         Dispatchers.resetMain()
-        System.out.println("MainCoroutineRule finished executed")
     }
 }

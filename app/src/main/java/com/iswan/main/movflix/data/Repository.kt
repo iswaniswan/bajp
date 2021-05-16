@@ -1,5 +1,6 @@
 package com.iswan.main.movflix.data
 
+import android.util.Log
 import com.iswan.main.movflix.data.models.MovieDetailEntity
 import com.iswan.main.movflix.data.models.MovieEntity
 import com.iswan.main.movflix.data.models.TvShowDetailEntity
@@ -18,6 +19,7 @@ class Repository(private val apiMovies: ApiMovies) {
         withContext(defaultDispatcher) {
             val list =  ArrayList<MovieEntity>()
             val response = apiMovies.getTrendingMoviesO()
+            Log.d(TAG, "getMovies: TEST ----> ${response.getListMovie()}")
             if (response.results.size() > 0) {
                 list.addAll(utils.arrToMovieList(response.results))
             }
@@ -28,6 +30,7 @@ class Repository(private val apiMovies: ApiMovies) {
         withContext(defaultDispatcher) {
             val list = ArrayList<TvShowEntity>()
             val response = apiMovies.getTrendingTvShowsO()
+            Log.d(TAG, "getTvs: TEST ----> ${response.getListTvShow()}")
             if (response.results.size() > 0) {
                 list.addAll(utils.arrToTvList(response.results))
             }

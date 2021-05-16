@@ -14,20 +14,14 @@ class MoviesViewModel: ViewModel() {
     private var _list = MutableLiveData<ArrayList<MovieEntity>>()
     val listMovie : LiveData<ArrayList<MovieEntity>> get () = _list
 
-    private fun initCo() {
-        viewModelScope.launch {
-            _list.value = repository.getMovies()
-        }
-    }
-
-    fun initCoTest() {
+    private fun getMovies() {
         viewModelScope.launch {
             _list.value = repository.getMovies()
         }
     }
 
     init {
-        initCo()
+        getMovies()
     }
 
 }

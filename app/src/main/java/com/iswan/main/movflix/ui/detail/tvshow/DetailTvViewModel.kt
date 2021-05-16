@@ -8,12 +8,10 @@ import com.iswan.main.movflix.data.models.TvShowDetailEntity
 import com.iswan.main.movflix.utils.Injectors.repository
 import kotlinx.coroutines.launch
 
-class DetailTvViewModel: ViewModel() {
-
-    private val TAG = "DETAIL TVSHOW VIEWMODEL"
+class DetailTvViewModel : ViewModel() {
 
     private var _tvShow = MutableLiveData<TvShowDetailEntity>()
-    val tvShow : LiveData<TvShowDetailEntity> get() = _tvShow
+    val tvShow: LiveData<TvShowDetailEntity> get() = _tvShow
 
     fun getTvShow(id: String) {
         viewModelScope.launch {

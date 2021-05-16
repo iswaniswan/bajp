@@ -10,8 +10,6 @@ import kotlinx.coroutines.launch
 
 class DetailMovieViewModel: ViewModel() {
 
-    private val TAG = "DETAIL MOVIE VIEWMODEL"
-
     private var _movie = MutableLiveData<MovieDetailEntity>()
     val movie : LiveData<MovieDetailEntity> get() = _movie
 

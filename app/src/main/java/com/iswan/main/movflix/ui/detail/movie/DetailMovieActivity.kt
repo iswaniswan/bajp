@@ -84,7 +84,7 @@ class DetailMovieActivity : AppCompatActivity() {
     private fun initView(movie: MovieDetailEntity) {
         with (binding) {
             Glide.with(this@DetailMovieActivity)
-                .load(utils.getImagePath(2, movie.backdropPath.toString()))
+                .load(utils.getImagePath(2, movie.posterPath.toString()))
                 .apply(RequestOptions.placeholderOf(R.drawable.ic_broken_image_black))
                 .into(ivBackdrop)
 

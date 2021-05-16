@@ -18,14 +18,13 @@ class MovieFragment : Fragment() {
 
     private lateinit var binding: FragmentMovieBinding
     private val viewModel : MoviesViewModel by viewModels()
-    private val TAG = this.javaClass.simpleName
     private val utils: Utils = Utils()
     private val mAdapter: MovieAdapter = MovieAdapter()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View {
+    ): View? {
         binding = FragmentMovieBinding.inflate(layoutInflater, container, false)
         return binding.root
     }

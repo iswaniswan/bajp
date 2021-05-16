@@ -8,7 +8,6 @@ import androidx.test.espresso.contrib.RecyclerViewActions
 import androidx.test.espresso.matcher.ViewMatchers.*
 import androidx.test.ext.junit.rules.ActivityScenarioRule
 import com.iswan.main.movflix.R
-import org.hamcrest.core.AllOf.allOf
 import org.junit.Rule
 import org.junit.Test
 
@@ -26,17 +25,19 @@ class MainActivityTest {
         onView(withId(R.id.rv_movies)).check(matches(isDisplayed()))
         onView(withId(R.id.rv_movies)).perform(
             RecyclerViewActions.scrollToPosition<RecyclerView.ViewHolder>(
-                0
+                19
             )
         )
         onView(withId(R.id.rv_movies)).perform(
             RecyclerViewActions.actionOnItemAtPosition<RecyclerView.ViewHolder>(
-                0,
+                19  ,
                 ViewActions.click()
             )
         )
         Thread.sleep(2000)
-        onView(allOf(withId(R.id.iv_backdrop), withText(R.string.release_date)))
+        onView(withId(R.id.tv_budget)).check(matches(isDisplayed())).also {
+            check(withId(R.id.tv_budget).toString().isNotBlank())
+        }
     }
 
     @Test
@@ -46,17 +47,17 @@ class MainActivityTest {
         onView(withId(R.id.rv_tvshow)).check(matches(isDisplayed()))
         onView(withId(R.id.rv_tvshow)).perform(
             RecyclerViewActions.scrollToPosition<RecyclerView.ViewHolder>(
-                0
+                19
             )
         )
         onView(withId(R.id.rv_tvshow)).perform(
             RecyclerViewActions.actionOnItemAtPosition<RecyclerView.ViewHolder>(
-                0,
+                19,
                 ViewActions.click()
             )
         )
         Thread.sleep(2000)
-        onView(allOf(withId(R.id.iv_backdrop), withText(R.string.all_seasons)))
+        onView(withId(R.id.rv_seasons)).check(matches(isDisplayed()))
     }
 
 }

@@ -18,7 +18,6 @@ class TvshowsFragment : Fragment() {
 
     private lateinit var binding: FragmentTvshowBinding
     private val viewModel : TvShowsViewModel by viewModels()
-    private val TAG = this.javaClass.simpleName
     private val utils: Utils = Utils()
     private val mAdapter: TvShowsAdapter = TvShowsAdapter()
 

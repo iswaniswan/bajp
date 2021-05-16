@@ -86,7 +86,7 @@ class DetailTvActivity : AppCompatActivity() {
     private fun initView(tv: TvShowDetailEntity) {
         with (binding) {
             Glide.with(this@DetailTvActivity)
-                .load(utils.getImagePath(2, tv.backdropPath.toString()))
+                .load(utils.getImagePath(2, tv.posterPath.toString()))
                 .apply(RequestOptions.placeholderOf(R.drawable.ic_broken_image_black))
                 .into(ivBackdrop)
             tvTitle.text = tv.name.toString()

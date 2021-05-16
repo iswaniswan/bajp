@@ -26,7 +26,7 @@ class CompaniesAdapter:
         fun bind(company: Company) {
             with (binding) {
                 Glide.with(itemView.context)
-                    .load(utils.getImagePath(1, company.logoPath.toString()))
+                    .load(utils.getImagePath(0, company.logoPath.toString()))
                     .apply(RequestOptions.placeholderOf(R.drawable.ic_broken_image_black))
                     .into(ivCompany)
                 var companyText = company.name.toString()

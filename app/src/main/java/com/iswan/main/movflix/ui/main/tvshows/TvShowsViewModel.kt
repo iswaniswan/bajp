@@ -14,14 +14,14 @@ class TvShowsViewModel: ViewModel() {
     private var _list = MutableLiveData<ArrayList<TvShowEntity>>()
     val listMovie : LiveData<ArrayList<TvShowEntity>> get () = _list
 
-    private fun initCo() {
+    private fun getTvs() {
         viewModelScope.launch {
             _list.value = repository.getTvShows()
         }
     }
 
     init {
-        initCo()
+        getTvs()
     }
 
 }
