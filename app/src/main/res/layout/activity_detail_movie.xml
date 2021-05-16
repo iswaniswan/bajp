@@ -39,6 +39,7 @@
 
         <ImageView
             android:id="@+id/iv_backdrop"
+            android:tag="@string/movies"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             app:layout_constraintEnd_toEndOf="parent"
@@ -57,6 +58,7 @@
             android:layout_marginStart="16dp"
             android:layout_marginEnd="16dp"
             android:id="@+id/tv_title"
+            android:tag="@string/movies"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/title"
@@ -65,6 +67,7 @@
 
         <TextView
             android:id="@+id/tv_date"
+            android:tag="@string/movies"
             android:layout_marginTop="16dp"
             android:layout_marginStart="16dp"
             android:layout_marginEnd="16dp"
@@ -79,6 +82,7 @@
 
         <TextView
             android:id="@+id/tv_genres"
+            android:tag="@string/movies"
             android:layout_marginTop="8dp"
             android:layout_marginStart="16dp"
             android:layout_marginEnd="16dp"
@@ -93,6 +97,7 @@
 
         <TextView
             android:id="@+id/tv_duration"
+            android:tag="@string/movies"
             android:layout_marginTop="8dp"
             android:layout_marginStart="16dp"
             android:layout_marginEnd="16dp"
@@ -107,6 +112,7 @@
 
         <TextView
             android:id="@+id/tv_score"
+            android:tag="@string/movies"
             app:layout_constraintTop_toBottomOf="@id/tv_title"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/tv_date"
@@ -135,6 +141,7 @@
 
         <TextView
             android:id="@+id/tv_tagline"
+            android:tag="@string/movies"
             android:layout_marginTop="16dp"
             android:layout_marginStart="16dp"
             android:layout_marginEnd="16dp"
@@ -147,6 +154,7 @@
 
         <TextView
             android:id="@+id/tv_overview_title"
+            android:tag="@string/movies"
             android:layout_marginTop="8dp"
             android:layout_marginStart="16dp"
             android:layout_marginEnd="16dp"
@@ -160,6 +168,7 @@
 
         <TextView
             android:id="@+id/tv_overview"
+            android:tag="@string/movies"
             android:layout_marginTop="8dp"
             android:layout_marginStart="16dp"
             android:layout_marginEnd="16dp"
@@ -172,6 +181,7 @@
 
         <TextView
             android:id="@+id/tv_status_title"
+            android:tag="@string/movies"
             android:layout_marginTop="16dp"
             android:layout_marginStart="16dp"
             android:layout_marginEnd="16dp"
@@ -185,6 +195,7 @@
 
         <TextView
             android:id="@+id/tv_status"
+            android:tag="@string/movies"
             android:layout_marginTop="16dp"
             android:layout_marginStart="16dp"
             android:layout_marginEnd="16dp"
@@ -199,6 +210,7 @@
 
         <TextView
             android:id="@+id/tv_language_title"
+            android:tag="@string/movies"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
@@ -213,6 +225,7 @@
 
         <TextView
             android:id="@+id/tv_language"
+            android:tag="@string/movies"
             android:layout_marginTop="8dp"
             android:layout_marginStart="16dp"
             android:layout_marginEnd="16dp"
@@ -226,6 +239,7 @@
 
         <TextView
             android:id="@+id/tv_budget_title"
+            android:tag="@string/movies"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
@@ -240,6 +254,7 @@
 
         <TextView
             android:id="@+id/tv_budget"
+            android:tag="@string/movies"
             android:layout_marginTop="8dp"
             android:layout_marginStart="16dp"
             android:layout_marginEnd="16dp"
@@ -253,6 +268,7 @@
 
         <TextView
             android:id="@+id/tv_revenue_title"
+            android:tag="@string/movies"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
@@ -267,6 +283,7 @@
 
         <TextView
             android:id="@+id/tv_revenue"
+            android:tag="@string/movies"
             android:layout_marginTop="8dp"
             android:layout_marginStart="16dp"
             android:layout_marginEnd="16dp"
@@ -280,6 +297,7 @@
 
         <TextView
             android:id="@+id/tv_homepage_title"
+            android:tag="@string/movies"
             app:layout_constraintTop_toBottomOf="@id/tv_revenue_title"
             app:layout_constraintStart_toStartOf="parent"
             android:layout_marginTop="16dp"
@@ -290,6 +308,7 @@
 
         <TextView
             android:id="@+id/tv_homepage"
+            android:tag="@string/movies"
             app:layout_constraintTop_toBottomOf="@id/tv_homepage_title"
             app:layout_constraintStart_toStartOf="parent"
             android:layout_marginTop="8dp"
@@ -300,6 +319,7 @@
 
         <TextView
             android:id="@+id/tv_production_companies"
+            android:tag="@string/movies"
             android:layout_marginTop="32dp"
             android:layout_marginStart="16dp"
             android:layout_marginEnd="16dp"
@@ -313,6 +333,7 @@
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_companies"
+            android:tag="@string/movies"
             app:layout_constraintTop_toBottomOf="@id/tv_production_companies"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -326,7 +347,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             tools:listitem="@layout/item_company" />
-
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

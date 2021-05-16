@@ -26,7 +26,7 @@ class TvShowsViewModelTest {
     }
 
     @Test
-    fun getMovies() {
+    fun getTvShows() {
         val tvShows = viewModel.listMovie
         Thread.sleep(2000)
         assertNotNull(tvShows)
