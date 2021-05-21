@@ -5,8 +5,8 @@ import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class Company (
-    val id : Int?,
-    val logoPath : String?,
-    val name: String?,
-    val originCoutry: String?
+    val id : Int,
+    val logoPath : String,
+    val name: String,
+    val originCountry: String
 ) : Parcelable

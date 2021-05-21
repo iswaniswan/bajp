@@ -24,8 +24,8 @@ object DataDummy {
         Company(13033, "", "NetherRealm Studios", "US")
     )
 
-    fun getSampleMovieDetail(): MovieDetailEntity =
-        MovieDetailEntity(
+    fun getSampleMovieDetail(): MovieDetail =
+        MovieDetail(
             false,
             "/6ELCZlTA5lGUops70hKdB83WJxH.jpg",
             20000000,
@@ -45,7 +45,7 @@ object DataDummy {
             "Get over here.",
             "Mortal Kombat",
             7.7,
-            2440.0
+            2440
         )
 
 
@@ -90,8 +90,8 @@ object DataDummy {
         )
     )
 
-    fun getSampleTvShowDetail(): TvShowDetailEntity =
-        TvShowDetailEntity(
+    fun getSampleTvShowDetail(): TvShowDetail =
+        TvShowDetail(
             "/zlXPNnnUlyg6KyvvjGd2ZxG6Tnw.jpg",
             43,
             "2017-09-25",
@@ -110,7 +110,7 @@ object DataDummy {
             "Returning Series",
             "His mind is a mystery, his methods are a miracle.",
             8.6,
-            8368.0
+            8368
         )
 
 }

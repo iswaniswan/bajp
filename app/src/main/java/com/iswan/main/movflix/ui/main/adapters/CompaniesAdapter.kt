@@ -26,11 +26,11 @@ class CompaniesAdapter:
         fun bind(company: Company) {
             with (binding) {
                 Glide.with(itemView.context)
-                    .load(utils.getImagePath(0, company.logoPath.toString()))
+                    .load(utils.getImagePath(0, company.logoPath))
                     .apply(RequestOptions.placeholderOf(R.drawable.ic_broken_image_black))
                     .into(ivCompany)
-                var companyText = company.name.toString()
-                if (company.originCoutry?.isNotEmpty()!!) companyText += "\n(${company.originCoutry})"
+                var companyText = company.name
+                if (company.originCountry.isNotEmpty()) companyText += "\n(${company.originCountry})"
                 tvCompany.text = companyText
             }
         }

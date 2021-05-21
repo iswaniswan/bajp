@@ -4,15 +4,17 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.iswan.main.movflix.data.models.TvShowEntity
-import com.iswan.main.movflix.utils.Injectors.repository
+import com.iswan.main.movflix.data.Repository
+import com.iswan.main.movflix.data.models.TvShow
 import kotlinx.coroutines.launch
 
 
-class TvShowsViewModel: ViewModel() {
+class TvShowsViewModel constructor(
+    private val repository: Repository
+): ViewModel() {
 
-    private var _list = MutableLiveData<ArrayList<TvShowEntity>>()
-    val listMovie : LiveData<ArrayList<TvShowEntity>> get () = _list
+    private var _list = MutableLiveData<ArrayList<TvShow>>()
+    val listMovie : LiveData<ArrayList<TvShow>> get () = _list
 
     private fun getTvs() {
         viewModelScope.launch {

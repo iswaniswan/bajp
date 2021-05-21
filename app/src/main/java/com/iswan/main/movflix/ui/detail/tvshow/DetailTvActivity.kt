@@ -9,9 +9,10 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.iswan.main.movflix.R
-import com.iswan.main.movflix.data.models.TvShowDetailEntity
+import com.iswan.main.movflix.data.models.TvShowDetail
 import com.iswan.main.movflix.data.models.concatName
 import com.iswan.main.movflix.databinding.ActivityDetailTvBinding
+import com.iswan.main.movflix.di.ViewModelFactory
 import com.iswan.main.movflix.ui.detail.movie.DetailMovieActivity
 import com.iswan.main.movflix.ui.main.adapters.CompaniesAdapter
 import com.iswan.main.movflix.ui.main.adapters.SeasonsAdapter
@@ -28,7 +29,6 @@ class DetailTvActivity : AppCompatActivity() {
     private lateinit var binding: ActivityDetailTvBinding
     private lateinit var companiesAdapter: CompaniesAdapter
     private lateinit var seasonsAdapter: SeasonsAdapter
-    private lateinit var viewModel: DetailTvViewModel
 
     private val utils: Utils = Utils()
 
@@ -72,7 +72,8 @@ class DetailTvActivity : AppCompatActivity() {
     }
 
     private fun initViewModel() {
-        viewModel = ViewModelProvider(this).get(DetailTvViewModel::class.java)
+        val factory = ViewModelFactory.getInstance()
+        val viewModel = ViewModelProvider(this, factory)[DetailTvViewModel::class.java]
         viewModel.tvShow.observe(this, {
             lifecycleScope.launch {
                 delay(500L)
@@ -83,28 +84,28 @@ class DetailTvActivity : AppCompatActivity() {
         viewModel.getTvShow(tvId)
     }
 
-    private fun initView(tv: TvShowDetailEntity) {
+    private fun initView(tv: TvShowDetail) {
         with (binding) {
             Glide.with(this@DetailTvActivity)
-                .load(utils.getImagePath(2, tv.posterPath.toString()))
+                .load(utils.getImagePath(2, tv.posterPath))
                 .apply(RequestOptions.placeholderOf(R.drawable.ic_broken_image_black))
                 .into(ivBackdrop)
-            tvTitle.text = tv.name.toString()
+            tvTitle.text = tv.name
 
-            val genres = getString(R.string.genres) + " " + tv.genres?.concatName()
+            val genres = getString(R.string.genres) + " " + tv.genres.concatName()
             tvGenres.text = genres
             tvScore.text = tv.voteAverage.toString()
 
             val duration = getString(R.string.duration) + " " + tv.episodeRunTime.toString() + " min"
             tvDuration.text = duration
 
-            tvTagline.text = tv.tagline.toString()
-            tvOverview.text = tv.overview.toString()
+            tvTagline.text = tv.tagline
+            tvOverview.text = tv.overview
 
-            tvStatus.text = tv.status.toString()
-            tvLanguage.text = tv.originalLanguage.toString()
+            tvStatus.text = tv.status
+            tvLanguage.text = tv.originalLanguage
 
-            tvHomepage.text = tv.homepage.toString()
+            tvHomepage.text = tv.homepage
         }
 
         seasonsAdapter = SeasonsAdapter()

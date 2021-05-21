@@ -1,12 +1,9 @@
-package com.iswan.main.movflix.data.rest
+package com.iswan.main.movflix.data.source.remote.rest
 
 import com.iswan.main.movflix.BuildConfig
 
 class ApiMovies(private val apiClient: ApiClient) {
 
-    private val TAG = "APIMOVIES"
-
-    /*   codelab   */
     suspend fun getTrendingMoviesO() = apiClient.instance().trendingMovieO(BuildConfig.TMDB_API_KEY)
 
     suspend fun getTrendingTvShowsO() = apiClient.instance().trendingTvShowO(BuildConfig.TMDB_API_KEY)

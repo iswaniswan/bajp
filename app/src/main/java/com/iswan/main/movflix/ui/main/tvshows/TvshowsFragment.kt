@@ -6,18 +6,18 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.iswan.main.movflix.R
-import com.iswan.main.movflix.data.models.TvShowEntity
+import com.iswan.main.movflix.data.models.TvShow
 import com.iswan.main.movflix.databinding.FragmentTvshowBinding
+import com.iswan.main.movflix.di.ViewModelFactory
 import com.iswan.main.movflix.ui.detail.tvshow.DetailTvActivity
 import com.iswan.main.movflix.utils.Utils
 
 class TvshowsFragment : Fragment() {
 
     private lateinit var binding: FragmentTvshowBinding
-    private val viewModel : TvShowsViewModel by viewModels()
     private val utils: Utils = Utils()
     private val mAdapter: TvShowsAdapter = TvShowsAdapter()
 
@@ -32,6 +32,9 @@ class TvshowsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         if (activity != null) {
+            val factory = ViewModelFactory.getInstance()
+            val viewModel = ViewModelProvider(requireActivity(), factory)[TvShowsViewModel::class.java]
+
             showLoading(true)
             viewModel.listMovie.observe(requireActivity(), {
                 if (it.isNotEmpty()) {
@@ -60,7 +63,7 @@ class TvshowsFragment : Fragment() {
         }
     }
 
-    private fun updateRecyclerView(list: ArrayList<TvShowEntity>) {
+    private fun updateRecyclerView(list: ArrayList<TvShow>) {
         mAdapter.setData(list)
         with (binding.rvTvshow) {
             layoutManager = LinearLayoutManager(context)
@@ -68,7 +71,7 @@ class TvshowsFragment : Fragment() {
             adapter = mAdapter
         }
         mAdapter.setOnItemClickCallback(object : TvShowsAdapter.IOnItemClickCallback {
-            override fun onItemClick(tvs: TvShowEntity) {
+            override fun onItemClick(tvs: TvShow) {
                 val intent = Intent(requireActivity(), DetailTvActivity::class.java)
                 intent.putExtra(DetailTvActivity.EXTRA_ID, tvs.id)
                 startActivity(intent)

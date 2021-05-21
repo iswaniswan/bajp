@@ -4,14 +4,16 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.iswan.main.movflix.data.models.MovieDetailEntity
-import com.iswan.main.movflix.utils.Injectors.repository
+import com.iswan.main.movflix.data.Repository
+import com.iswan.main.movflix.data.models.MovieDetail
 import kotlinx.coroutines.launch
 
-class DetailMovieViewModel: ViewModel() {
+class DetailMovieViewModel constructor(
+    private val repository: Repository
+): ViewModel() {
 
-    private var _movie = MutableLiveData<MovieDetailEntity>()
-    val movie : LiveData<MovieDetailEntity> get() = _movie
+    private var _movie = MutableLiveData<MovieDetail>()
+    val movie : LiveData<MovieDetail> get() = _movie
 
     fun getMovie(id: String) {
         viewModelScope.launch {

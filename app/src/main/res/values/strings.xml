@@ -22,7 +22,7 @@
     <string name="revenue">Revenue</string>
     <string name="production_companies">Production companies</string>
     <string name="Homepage">homepage</string>
-    <string name="error_occured">Error occured</string>
+    <string name="error_occured">Error occurred</string>
     <string name="current_season">Current season</string>
     <string name="season">Season</string>
     <string name="yyyy">YYYY</string>
@@ -30,4 +30,5 @@
     <string name="episodes">Episodes</string>
     <string name="all_seasons">All seasons</string>
     <string name="bajp">BAJP</string>
+    <string name="image">image</string>
 </resources>

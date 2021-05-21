@@ -1,8 +1,8 @@
-package com.iswan.main.movflix.data.rest
+package com.iswan.main.movflix.data.source.remote.rest
 
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
-import com.iswan.main.movflix.data.Config
+import com.iswan.main.movflix.data.source.remote.Config
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -26,4 +26,5 @@ object ApiClient {
             .build()
         return retrofit.create(ApiInterface::class.java)
     }
+
 }

@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.iswan.main.movflix.R
-import com.iswan.main.movflix.data.models.MovieEntity
+import com.iswan.main.movflix.data.models.Movie
 import com.iswan.main.movflix.databinding.ItemMovieBinding
 import com.iswan.main.movflix.utils.Utils
 
@@ -17,23 +17,23 @@ class MovieAdapter: RecyclerView.Adapter<MovieAdapter.MovieViewHolder>() {
     private var iOnItemClickCallback: IOnItemClickCallback? = null
 
     interface IOnItemClickCallback {
-        fun onItemClick(movie: MovieEntity)
+        fun onItemClick(movie: Movie)
     }
 
     fun setOnItemClickCallback(callback: IOnItemClickCallback) {
         this.iOnItemClickCallback = callback
     }
 
-    private val listMovie = ArrayList<MovieEntity>()
+    private val listMovie = ArrayList<Movie>()
 
-    fun setData(movies: ArrayList<MovieEntity>) {
+    fun setData(movies: ArrayList<Movie>) {
         this.listMovie.clear()
         this.listMovie.addAll(movies)
         this.notifyDataSetChanged()
     }
 
     inner class MovieViewHolder(private val binding: ItemMovieBinding): RecyclerView.ViewHolder(binding.root) {
-        fun bind(movie: MovieEntity) {
+        fun bind(movie: Movie) {
             with (binding) {
                 tvTitle.text = movie.title
                 val releaseDate = itemView.resources.getString(R.string.release_date) + " : " + movie.releaseDate
@@ -42,7 +42,7 @@ class MovieAdapter: RecyclerView.Adapter<MovieAdapter.MovieViewHolder>() {
                 tvScore.text = score
                 tvOverview.text = movie.overview
                 Glide.with(itemView.context)
-                    .load(utils.getImagePath(1, movie.posterPath.toString()))
+                    .load(utils.getImagePath(1, movie.posterPath))
                     .apply(RequestOptions.placeholderOf(R.drawable.ic_broken_image_black))
                     .into(ivBackdrop)
                 itemView.setOnClickListener {

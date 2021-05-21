@@ -1,4 +1,4 @@
-package com.iswan.main.movflix.data
+package com.iswan.main.movflix.data.source.remote
 
 object Config {
 

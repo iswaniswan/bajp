@@ -1,18 +1,30 @@
+@file:Suppress("LocalVariableName")
 package com.iswan.main.movflix.ui.detail.movie
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
-import com.iswan.main.movflix.data.models.Company
-import com.iswan.main.movflix.data.models.Genre
-import com.iswan.main.movflix.utils.DataDummy
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.Observer
+import com.iswan.main.movflix.data.FakeData
+import com.iswan.main.movflix.data.Repository
+import com.iswan.main.movflix.data.models.MovieDetail
+import com.iswan.main.movflix.utils.LiveDataTestUtil
 import com.iswan.main.movflix.utils.MainCoroutineRule
+import com.nhaarman.mockitokotlin2.any
+import com.nhaarman.mockitokotlin2.verify
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.test.runBlockingTest
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNotNull
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
+import org.junit.runner.RunWith
+import org.mockito.Mock
+import org.mockito.Mockito
+import org.mockito.junit.MockitoJUnitRunner
 
 @ExperimentalCoroutinesApi
+@RunWith(MockitoJUnitRunner::class)
 class DetailMovieViewModelTest {
 
     @get:Rule
@@ -21,41 +33,58 @@ class DetailMovieViewModelTest {
     @get:Rule
     val mainCoroutineRule = MainCoroutineRule()
 
+    @Mock
+    private lateinit var repository: Repository
+
+    @Mock
+    private lateinit var observer: Observer<MovieDetail>
+
     private lateinit var viewModel: DetailMovieViewModel
-    private val sampleMovieDetail = DataDummy.getSampleMovieDetail()
+    private val fakeMovieDetail = FakeData.generateMovieDetail()
+    private val movieId = fakeMovieDetail.id.toString()
 
     @Before
     fun setup() {
-        viewModel = DetailMovieViewModel()
+        viewModel = DetailMovieViewModel(repository)
     }
 
     @Test
     fun getMovieDetail() {
-        val movie = viewModel.movie
-        viewModel.getMovie(sampleMovieDetail.id.toString())
-        Thread.sleep(2000)
-        assertNotNull(movie)
-        assertEquals(sampleMovieDetail.title, movie.value?.title)
-        assertEquals(sampleMovieDetail.adult, movie.value?.adult)
-        assertEquals(sampleMovieDetail.backdropPath, movie.value?.backdropPath)
-        assertEquals(sampleMovieDetail.budget, movie.value?.budget)
-        assertEquals(sampleMovieDetail.genres, movie.value?.genres)
-        assertEquals(sampleMovieDetail.homepage, movie.value?.homepage)
-        assertEquals(sampleMovieDetail.id, movie.value?.id)
-        assertEquals(sampleMovieDetail.originalLanguage, movie.value?.originalLanguage)
-        assertEquals(sampleMovieDetail.originalTitle, movie.value?.originalTitle)
-        assertEquals(sampleMovieDetail.overview, movie.value?.overview)
-        assertEquals(sampleMovieDetail.popularity, movie.value?.popularity)
-        assertEquals(sampleMovieDetail.posterPath, movie.value?.posterPath)
-        assertEquals(sampleMovieDetail.productionCompanies, movie.value?.productionCompanies)
-        assertEquals(sampleMovieDetail.releaseDate, movie.value?.releaseDate)
-        assertEquals(sampleMovieDetail.revenue, movie.value?.revenue)
-        assertEquals(sampleMovieDetail.runtime, movie.value?.runtime)
-        assertEquals(sampleMovieDetail.status, movie.value?.status)
-        assertEquals(sampleMovieDetail.tagline, movie.value?.tagline)
-        assertEquals(sampleMovieDetail.title, movie.value?.title)
-        assertEquals(sampleMovieDetail.voteAverage, movie.value?.voteAverage)
-        assertEquals(sampleMovieDetail.voteCount, movie.value?.voteCount)
+        val _movieDetail = MutableLiveData<MovieDetail>()
+        _movieDetail.value = fakeMovieDetail
+
+        runBlockingTest {
+            Mockito.`when`(repository.getMovie(movieId)).thenReturn(fakeMovieDetail)
+            viewModel.getMovie(movieId)
+            Mockito.verify(repository).getMovie(movieId)
+            val movieDetail = LiveDataTestUtil.getValue(viewModel.movie)
+            assertNotNull(movieDetail)
+            assertEquals(_movieDetail.value?.id, movieDetail.id)
+            assertEquals(_movieDetail.value?.title, movieDetail.title)
+            assertEquals(_movieDetail.value?.adult, movieDetail.adult)
+            assertEquals(_movieDetail.value?.backdropPath, movieDetail.backdropPath)
+            assertEquals(_movieDetail.value?.budget, movieDetail.budget)
+            assertEquals(_movieDetail.value?.genres, movieDetail.genres)
+            assertEquals(_movieDetail.value?.homepage, movieDetail.homepage)
+            assertEquals(_movieDetail.value?.originalLanguage, movieDetail.originalLanguage)
+            assertEquals(_movieDetail.value?.originalTitle, movieDetail.originalTitle)
+            assertEquals(_movieDetail.value?.overview, movieDetail.overview)
+            assertEquals(_movieDetail.value?.popularity, movieDetail.popularity)
+            assertEquals(_movieDetail.value?.posterPath, movieDetail.posterPath)
+            assertEquals(
+                _movieDetail.value?.productionCompanies,
+                movieDetail.productionCompanies
+            )
+            assertEquals(_movieDetail.value?.releaseDate, movieDetail.releaseDate)
+            assertEquals(_movieDetail.value?.revenue, movieDetail.revenue)
+            assertEquals(_movieDetail.value?.runtime, movieDetail.runtime)
+            assertEquals(_movieDetail.value?.status, movieDetail.status)
+            assertEquals(_movieDetail.value?.tagline, movieDetail.tagline)
+            assertEquals(_movieDetail.value?.voteAverage, movieDetail.voteAverage)
+            assertEquals(_movieDetail.value?.voteCount, movieDetail.voteCount)
+        }
+        viewModel.movie.observeForever(observer)
+        Mockito.verify(observer).onChanged(fakeMovieDetail)
     }
 
 }
