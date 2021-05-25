@@ -26,10 +26,10 @@ class SeasonsAdapter:
         fun bind(season: Season) {
             with (binding) {
                 Glide.with(itemView.context)
-                    .load(utils.getImagePath(1, season.posterPath.toString()))
+                    .load(utils.getImagePath(1, season.posterPath))
                     .apply(RequestOptions.placeholderOf(R.drawable.ic_broken_image_black))
                     .into(ivBackdrop)
-                tvYear.text = utils.yearStr(season.airDate.toString())
+                tvYear.text = utils.yearStr(season.airDate)
                 tvSeason.text = season.name
                 val episode = season.episodeCount.toString() + " " + itemView.resources.getString(R.string.episodes)
                 tvEpisodes.text = episode

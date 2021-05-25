@@ -26,18 +26,18 @@ class ViewModelFactory constructor(
     }
 
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-        when {
+        return when {
             modelClass.isAssignableFrom(MoviesViewModel::class.java) -> {
-                return MoviesViewModel(repository) as T
+                MoviesViewModel(repository) as T
             }
             modelClass.isAssignableFrom(TvShowsViewModel::class.java) -> {
-                return TvShowsViewModel(repository) as T
+                TvShowsViewModel(repository) as T
             }
             modelClass.isAssignableFrom(DetailMovieViewModel::class.java) -> {
-                return DetailMovieViewModel(repository) as T
+                DetailMovieViewModel(repository) as T
             }
             modelClass.isAssignableFrom(DetailTvViewModel::class.java) -> {
-                return DetailTvViewModel(repository) as T
+                DetailTvViewModel(repository) as T
             }
             else -> throw Throwable("unknow class : " + modelClass.name)
         }

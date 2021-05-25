@@ -7,7 +7,7 @@ import androidx.lifecycle.Observer
 import com.iswan.main.movflix.data.FakeData
 import com.iswan.main.movflix.data.Repository
 import com.iswan.main.movflix.data.models.TvShowDetail
-import com.iswan.main.movflix.utils.*
+import com.iswan.main.movflix.utils.LiveDataTestUtil
 import com.iswan.main.movflix.utils.MainCoroutineRule
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runBlockingTest

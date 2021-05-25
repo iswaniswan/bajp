@@ -4,13 +4,13 @@ import com.iswan.main.movflix.data.models.*
 
 object DataDummy {
 
-    val sampleGenresMovie: ArrayList<Genre> = arrayListOf(
+    private val sampleGenresMovie: ArrayList<Genre> = arrayListOf(
         Genre(28, "Action"),
         Genre(14, "Fantasy"),
         Genre(12, "Adventure")
     )
 
-    val sampleCompaniesMovie: ArrayList<Company> = arrayListOf(
+    private val sampleCompaniesMovie: ArrayList<Company> = arrayListOf(
         Company(76907, "/wChlWsVgwSd4ZWxTIm8PTEcaESz.png", "Atomic Monster", "US"),
         Company(8000, "/f8NwLg72BByt3eav7lX1lcJfe60.png", "Broken Road Productions", "US"),
         Company(12, "/iaYpEp3LQmb8AfAtmTvpqd4149c.png", "New Line Cinema", "US"),
@@ -49,17 +49,17 @@ object DataDummy {
         )
 
 
-    val sampleGenresTvShow: ArrayList<Genre> = arrayListOf(
+    private val sampleGenresTvShow: ArrayList<Genre> = arrayListOf(
         Genre(18, "Drama")
     )
 
-    val sampleCompaniesTvShow: ArrayList<Company> = arrayListOf(
+    private val sampleCompaniesTvShow: ArrayList<Company> = arrayListOf(
         Company(19366, "/vOH8dyQhLK01pg5fYkgiS31jlFm.png", "ABC Studios", "US"),
         Company(90375, "", "3AD", "US"),
         Company(11073, "/wHs44fktdoj6c378ZbSWfzKsM2Z.png", "Sony Pictures Television Studios", "US")
     )
 
-    val sampleSeasons: ArrayList<Season> = arrayListOf(
+    private val sampleSeasons: ArrayList<Season> = arrayListOf(
         Season("2017-09-25", 18, 88380, "Season 1", "", "/hiNyjUSTFrbMv3Sc0CxNW2o39az.jpg", 1),
         Season(
             "2018-09-24",

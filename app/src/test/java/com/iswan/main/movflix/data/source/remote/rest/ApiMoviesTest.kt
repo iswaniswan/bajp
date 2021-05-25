@@ -10,7 +10,6 @@ import kotlinx.coroutines.test.TestCoroutineDispatcher
 import kotlinx.coroutines.test.TestCoroutineScope
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNotNull
-import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -32,7 +31,7 @@ class ApiMoviesTest {
     @Mock
     private lateinit var apiClient: ApiClient
 
-    private val API_KEY = "API_KEY"
+    private val apiKey = "API_KEY"
 
     private val movieId = DataDummy.getSampleMovieDetail().id.toString()
     private val tvShowId = DataDummy.getSampleTvShowDetail().id.toString()
@@ -48,9 +47,9 @@ class ApiMoviesTest {
     @Test
     fun getTrendingMoviesO() {
         testScope.launch {
-            val request = apiClient.instance().trendingMovieO(API_KEY)
+            val request = apiClient.instance().trendingMovieO(apiKey)
             Mockito.`when`(request).thenReturn(responseMovies)
-            Mockito.verify(apiClient.instance().trendingMovieO(API_KEY))
+            Mockito.verify(apiClient.instance().trendingMovieO(apiKey))
             assertNotNull(request)
             assertEquals(responseMovies, request)
             assertEquals(20, request.results.size)
@@ -60,9 +59,9 @@ class ApiMoviesTest {
     @Test
     fun getTrendingTvShowsO() {
         testScope.launch {
-            val request = apiClient.instance().trendingTvShowO(API_KEY)
+            val request = apiClient.instance().trendingTvShowO(apiKey)
             Mockito.`when`(request).thenReturn(responseTvShows)
-            Mockito.verify(apiClient.instance().trendingTvShowO(API_KEY))
+            Mockito.verify(apiClient.instance().trendingTvShowO(apiKey))
             assertNotNull(request)
             assertEquals(responseTvShows, request)
             assertEquals(20, request.results.size)
@@ -72,9 +71,9 @@ class ApiMoviesTest {
     @Test
     fun getMovieO() {
         testScope.launch {
-            val request = apiClient.instance().getMovie(movieId, API_KEY)
+            val request = apiClient.instance().getMovie(movieId, apiKey)
             Mockito.`when`(request).thenReturn(responseMovie)
-            Mockito.verify(apiClient.instance().getMovie(movieId, API_KEY))
+            Mockito.verify(apiClient.instance().getMovie(movieId, apiKey))
             assertNotNull(request)
             assertEquals(responseMovie, request)
         }
@@ -83,9 +82,9 @@ class ApiMoviesTest {
     @Test
     fun getTvShowO() {
         testScope.launch {
-            val request = apiClient.instance().getTvShow(tvShowId, API_KEY)
+            val request = apiClient.instance().getTvShow(tvShowId, apiKey)
             Mockito.`when`(request).thenReturn(responseTvShow)
-            Mockito.verify(apiClient.instance().getTvShow(tvShowId, API_KEY))
+            Mockito.verify(apiClient.instance().getTvShow(tvShowId, apiKey))
             assertNotNull(request)
             assertEquals(responseTvShow, request)
         }

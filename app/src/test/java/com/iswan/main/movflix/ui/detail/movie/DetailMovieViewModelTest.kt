@@ -9,8 +9,6 @@ import com.iswan.main.movflix.data.Repository
 import com.iswan.main.movflix.data.models.MovieDetail
 import com.iswan.main.movflix.utils.LiveDataTestUtil
 import com.iswan.main.movflix.utils.MainCoroutineRule
-import com.nhaarman.mockitokotlin2.any
-import com.nhaarman.mockitokotlin2.verify
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runBlockingTest
 import org.junit.Assert.assertEquals

@@ -7,9 +7,9 @@ import com.iswan.main.movflix.data.source.remote.rest.ApiMovies
 
 object Injection {
 
-    fun provideApi(): ApiMovies = ApiMovies(ApiClient)
+    private fun provideApi(): ApiMovies = ApiMovies(ApiClient)
 
-    fun provideRemoteDataSource(): RemoteDataSource {
+    private fun provideRemoteDataSource(): RemoteDataSource {
         val apiMovies = provideApi()
         return RemoteDataSource(apiMovies)
     }
