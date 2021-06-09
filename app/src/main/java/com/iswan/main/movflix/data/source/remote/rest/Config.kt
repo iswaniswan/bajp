@@ -1,4 +1,4 @@
-package com.iswan.main.movflix.data.source.remote
+package com.iswan.main.movflix.data.source.remote.rest
 
 object Config {
 
@@ -8,5 +8,7 @@ object Config {
     const val TMDB_ICON: String = "w92"
     const val TMDB_SMALL: String = "w154"
     const val TMDB_MEDIUM: String = "w500"
+
+    const val STARTING_PAGE_INDEX = 1
 
 }

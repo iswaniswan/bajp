@@ -45,7 +45,8 @@ object DataDummy {
             "Get over here.",
             "Mortal Kombat",
             7.7,
-            2440
+            2440,
+            false
         )
 
 
@@ -110,7 +111,8 @@ object DataDummy {
             "Returning Series",
             "His mind is a mystery, his methods are a miracle.",
             8.6,
-            8368
+            8368,
+            false
         )
 
 }

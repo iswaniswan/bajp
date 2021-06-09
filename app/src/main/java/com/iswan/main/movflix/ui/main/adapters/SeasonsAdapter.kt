@@ -13,7 +13,6 @@ import com.iswan.main.movflix.utils.Utils
 class SeasonsAdapter:
     RecyclerView.Adapter<SeasonsAdapter.SeasonsViewHolder>() {
 
-    private val utils: Utils = Utils()
     private val seasons = ArrayList<Season>()
 
     fun setData(seasons: ArrayList<Season>) {
@@ -26,10 +25,10 @@ class SeasonsAdapter:
         fun bind(season: Season) {
             with (binding) {
                 Glide.with(itemView.context)
-                    .load(utils.getImagePath(1, season.posterPath))
+                    .load(Utils.getImagePath(1, season.posterPath))
                     .apply(RequestOptions.placeholderOf(R.drawable.ic_broken_image_black))
                     .into(ivBackdrop)
-                tvYear.text = utils.yearStr(season.airDate)
+                tvYear.text = Utils.yearStr(season.airDate)
                 tvSeason.text = season.name
                 val episode = season.episodeCount.toString() + " " + itemView.resources.getString(R.string.episodes)
                 tvEpisodes.text = episode

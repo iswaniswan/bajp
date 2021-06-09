@@ -6,20 +6,19 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.iswan.main.movflix.R
-import com.iswan.main.movflix.data.models.TvShow
 import com.iswan.main.movflix.databinding.FragmentTvshowBinding
-import com.iswan.main.movflix.di.ViewModelFactory
 import com.iswan.main.movflix.ui.detail.tvshow.DetailTvActivity
 import com.iswan.main.movflix.utils.Utils
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class TvshowsFragment : Fragment() {
 
     private lateinit var binding: FragmentTvshowBinding
-    private val utils: Utils = Utils()
-    private val mAdapter: TvShowsAdapter = TvShowsAdapter()
+    private val viewModel: TvShowsViewModel by viewModels()
+//    private val mAdapter: TvShowsAdapter = TvShowsAdapter()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -32,19 +31,8 @@ class TvshowsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         if (activity != null) {
-            val factory = ViewModelFactory.getInstance()
-            val viewModel = ViewModelProvider(requireActivity(), factory)[TvShowsViewModel::class.java]
 
             showLoading(true)
-            viewModel.listMovie.observe(requireActivity(), {
-                if (it.isNotEmpty()) {
-                    showLoading(false)
-                    updateRecyclerView(it)
-                } else {
-                    showLoading(false)
-                    utils.showNotifSnackbar(binding.root, getString(R.string.error_occured))
-                }
-            })
         }
         showLoading(true)
     }
@@ -63,21 +51,21 @@ class TvshowsFragment : Fragment() {
         }
     }
 
-    private fun updateRecyclerView(list: ArrayList<TvShow>) {
-        mAdapter.setData(list)
-        with (binding.rvTvshow) {
-            layoutManager = LinearLayoutManager(context)
-            setHasFixedSize(true)
-            adapter = mAdapter
-        }
-        mAdapter.setOnItemClickCallback(object : TvShowsAdapter.IOnItemClickCallback {
-            override fun onItemClick(tvs: TvShow) {
-                val intent = Intent(requireActivity(), DetailTvActivity::class.java)
-                intent.putExtra(DetailTvActivity.EXTRA_ID, tvs.id)
-                startActivity(intent)
-            }
-        })
-    }
+//    private fun updateRecyclerView(list: ArrayList<TvShow>) {
+//        mAdapter.setData(list)
+//        with (binding.rvTvshow) {
+//            layoutManager = LinearLayoutManager(context)
+//            setHasFixedSize(true)
+//            adapter = mAdapter
+//        }
+//        mAdapter.setOnItemClickCallback(object : TvShowsAdapter.IOnItemClickCallback {
+//            override fun onItemClick(tvs: TvShow) {
+//                val intent = Intent(requireActivity(), DetailTvActivity::class.java)
+//                intent.putExtra(DetailTvActivity.EXTRA_ID, tvs.id)
+//                startActivity(intent)
+//            }
+//        })
+//    }
 
 
 }

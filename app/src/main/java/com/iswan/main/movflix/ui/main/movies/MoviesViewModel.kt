@@ -1,29 +1,94 @@
 package com.iswan.main.movflix.ui.main.movies
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import android.util.Log
+import androidx.lifecycle.*
+import androidx.paging.*
 import com.iswan.main.movflix.data.Repository
 import com.iswan.main.movflix.data.models.Movie
+import com.iswan.main.movflix.utils.Mapper
+import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-
-class MoviesViewModel(
-    private val repository: Repository
+@HiltViewModel
+class MoviesViewModel @Inject constructor(
+    private val repository: Repository,
+    state: SavedStateHandle
 ): ViewModel() {
 
-    private var _list = MutableLiveData<ArrayList<Movie>>()
-    val listMovie : LiveData<ArrayList<Movie>> get () = _list
+    private val TAG = "MoviesViewModel"
 
-    private fun getMovies() {
-        viewModelScope.launch {
-            _list.value = repository.getMovies()
+    companion object {
+        private const val CURRENT_QUERY = "curent_query"
+        private const val EMPTY_QUERY = ""
+    }
+
+    private var currentQueryValue: String? = null
+    private var currentSearchResult: Flow<PagingData<Movie>>? = null
+
+    fun search(query: String): Flow<PagingData<Movie>> {
+        val lastResult = currentSearchResult
+
+        if (query == currentQueryValue && lastResult != null) {
+            return lastResult
         }
+
+        currentQueryValue = query
+
+        val newResult: Flow<PagingData<Movie>> =
+            if (query.isNotEmpty()) {
+                repository.searchMovies(query)
+            } else {
+                repository.getTrendingMovies()
+                    .cachedIn(viewModelScope)
+            }
+
+        currentSearchResult = newResult
+        return newResult
     }
 
-    init {
-        getMovies()
-    }
+    /*  */
+//    private val currentQuery = state.getLiveData(CURRENT_QUERY, EMPTY_QUERY)
+
+//    private var _movies = MutableLiveData<PagingData<Movie>>()
+//        .apply {
+//        viewModelScope.launch {
+//            /* using live data */
+//            repository.getMoviesL().map {
+//                value = it.map {
+//                    Mapper.entityToModel(it)
+//                }
+//            }
+
+
+            /* using flow */
+//            repository.getMovies()
+//                .collectLatest {
+//                    value = it.map {
+//                        Mapper.entityToModel(it)
+//                    }
+//            }
+//        }
+//    }
+
+//    val movies = currentQuery.switchMap { query ->
+//        if (!query.isEmpty()) {
+//            repository.searchMoviesL(query)
+//        } else {
+//            /* using live data */
+//            repository.getMoviesL().map {
+//                it.map {
+//                    Mapper.entityToModel(it)
+//                }
+//            }.cachedIn(viewModelScope)
+//        }
+//    }
+//
+//    fun search(query: String) {
+//        currentQuery.value = query
+//    }
 
 }

@@ -28,18 +28,18 @@ data class MovieResponse(
 	var id: Int,
 
 	@field:SerializedName("poster_path")
-	var poster_path: String?,
+	var posterPath: String?,
 
 	@field:SerializedName("overview")
 	var overview: String?,
 
 	@field:SerializedName("release_date")
-	var release_date: String?,
+	var releaseDate: String?,
 
 	@field:SerializedName("title")
 	var title: String?,
 
 	@field:SerializedName("vote_average")
-	var vote_average: Double
+	var voteAverage: Double
 
 ) : Parcelable

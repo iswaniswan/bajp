@@ -23,5 +23,6 @@ data class TvShowDetail(
     val status: String,
     val tagline: String,
     val voteAverage: Double,
-    val voteCount: Int
+    val voteCount: Int,
+    val isFavourite: Boolean
 ):Parcelable

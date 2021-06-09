@@ -2,11 +2,11 @@ package com.iswan.main.movflix.utils
 
 import android.view.View
 import com.google.android.material.snackbar.Snackbar
-import com.iswan.main.movflix.data.source.remote.Config
+import com.iswan.main.movflix.data.source.remote.rest.Config
 import java.text.DecimalFormat
 import java.text.NumberFormat
 
-class Utils {
+object Utils {
 
     fun getImagePath(size: Int, path: String): String {
         var url = Config.TMDB_URL + Config.TMDB_PATH

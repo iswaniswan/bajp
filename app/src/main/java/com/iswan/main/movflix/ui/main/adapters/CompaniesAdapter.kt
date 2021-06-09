@@ -13,7 +13,6 @@ import com.iswan.main.movflix.utils.Utils
 class CompaniesAdapter:
     RecyclerView.Adapter<CompaniesAdapter.CompanyViewHolder>() {
 
-    private val utils: Utils = Utils()
     private val companies = ArrayList<Company>()
 
     fun setData(companies: ArrayList<Company>) {
@@ -26,7 +25,7 @@ class CompaniesAdapter:
         fun bind(company: Company) {
             with (binding) {
                 Glide.with(itemView.context)
-                    .load(utils.getImagePath(0, company.logoPath))
+                    .load(Utils.getImagePath(0, company.logoPath))
                     .apply(RequestOptions.placeholderOf(R.drawable.ic_broken_image_black))
                     .into(ivCompany)
                 var companyText = company.name

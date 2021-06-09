@@ -31,4 +31,8 @@
     <string name="all_seasons">All seasons</string>
     <string name="bajp">BAJP</string>
     <string name="image">image</string>
+    <string name="search">Search</string>
+    <string name="result_could_not_be_loaded">Result could not be loaded</string>
+    <string name="retry">Retry</string>
+    <string name="result_not_found">Result not found</string>
 </resources>

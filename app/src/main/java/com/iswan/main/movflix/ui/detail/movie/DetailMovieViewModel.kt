@@ -5,20 +5,22 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.iswan.main.movflix.data.Repository
-import com.iswan.main.movflix.data.models.MovieDetail
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class DetailMovieViewModel constructor(
+@HiltViewModel
+class DetailMovieViewModel @Inject constructor(
     private val repository: Repository
 ): ViewModel() {
 
-    private var _movie = MutableLiveData<MovieDetail>()
-    val movie : LiveData<MovieDetail> get() = _movie
-
-    fun getMovie(id: String) {
-        viewModelScope.launch {
-            _movie.value = repository.getMovie(id)
-        }
-    }
+//    private var _movie = MutableLiveData<MovieDetail>()
+//    val movie : LiveData<MovieDetail> get() = _movie
+//
+//    fun getMovie(id: String) {
+//        viewModelScope.launch {
+//            _movie.value = repository.getMovie(id)
+//        }
+//    }
 
 }
