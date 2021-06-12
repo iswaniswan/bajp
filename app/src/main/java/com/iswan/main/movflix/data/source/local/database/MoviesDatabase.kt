@@ -6,7 +6,7 @@ import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 import com.iswan.main.movflix.data.source.local.entity.*
 
-@Database(entities = [MovieEntity::class, TvShowEntity::class, RemoteKeys::class],
+@Database(entities = [MovieEntity::class, TvShowEntity::class],
     version = 1,
     exportSchema = false)
 @TypeConverters(Converters::class)

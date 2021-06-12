@@ -14,7 +14,7 @@ data class MovieDetailResponse(
 	val backdropPath: String,
 
 	@field:SerializedName("budget")
-	val budget: Int,
+	val budget: Long,
 
 	@field:SerializedName("genres")
 	val genres: List<GenresItem>,
@@ -47,7 +47,7 @@ data class MovieDetailResponse(
 	val releaseDate: String,
 
 	@field:SerializedName("revenue")
-	val revenue: Int,
+	val revenue: Long,
 
 	@field:SerializedName("runtime")
 	val runtime: Int,

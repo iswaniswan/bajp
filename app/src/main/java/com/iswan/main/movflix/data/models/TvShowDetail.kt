@@ -10,7 +10,7 @@ data class TvShowDetail(
     val firstAirDate: String,
     val genres: ArrayList<Genre>,
     val homepage: String,
-    val id: Int,
+    val id: String,
     val lastAirDate: String,
     val name: String,
     val numberOfSeasons: Int,

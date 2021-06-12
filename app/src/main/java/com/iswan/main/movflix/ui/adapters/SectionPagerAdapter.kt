@@ -1,4 +1,4 @@
-package com.iswan.main.movflix.ui.main
+package com.iswan.main.movflix.ui.adapters
 
 import android.content.Context
 import androidx.annotation.StringRes
@@ -6,8 +6,8 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
 import com.iswan.main.movflix.R
-import com.iswan.main.movflix.ui.main.movies.MovieFragment
-import com.iswan.main.movflix.ui.main.tvshows.TvshowsFragment
+import com.iswan.main.movflix.ui.fragments.movies.MovieFragment
+import com.iswan.main.movflix.ui.fragments.tvshows.TvshowsFragment
 
 class SectionPagerAdapter(private val context: Context, fm: FragmentManager):
     FragmentPagerAdapter(fm, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {

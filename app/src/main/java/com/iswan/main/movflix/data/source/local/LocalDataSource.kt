@@ -1,9 +1,17 @@
 package com.iswan.main.movflix.data.source.local
 
-import androidx.paging.*
+import androidx.paging.Pager
+import androidx.paging.PagingConfig
+import androidx.paging.PagingData
+import androidx.paging.map
 import com.iswan.main.movflix.data.models.Movie
+import com.iswan.main.movflix.data.models.TvShow
 import com.iswan.main.movflix.data.source.local.database.MovieDao
+import com.iswan.main.movflix.data.source.local.entity.MovieEntity
+import com.iswan.main.movflix.data.source.local.entity.TvShowEntity
 import com.iswan.main.movflix.utils.Mapper
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -12,48 +20,41 @@ class LocalDataSource @Inject constructor(
     private val dao: MovieDao
 ) {
 
-//    private val pagingConfig: PagingConfig = PagingConfig(
-//        pageSize = 5, maxSize = 20, enablePlaceholders = false
-//    )
+    fun getFavouriteMovies(): Flow<PagingData<Movie>> =
+        Pager(
+            config = PagingConfig(
+                pageSize = 5,
+                maxSize = 20,
+                enablePlaceholders = false
+            ),
+            pagingSourceFactory = { dao.getFavouriteMovies() }
+        ).flow
+            .map { paging ->
+                paging.map {
+                    Mapper.entityToModel(it)
+                }
+            }
 
-    //    fun getMovie(id: Int): Flow<MovieEntity> = dao.getMovie(id)
-//
-//    fun getAllMovies(): PagingSource<Int, Movie> {
-//        val pager = Pager(
-//            config = pagingConfig,
-//            pagingSourceFactory = { MovieDBPagingSource(dao, null) }
-//        )
-//    }
+    fun getFavouriteMovie(id: String): Flow<MovieEntity?> = dao.getFavouriteMovie(id)
 
-//
-//    fun searchMovies(query: String) =
-//        Pager(
-//            config = pagingConfig,
-//            pagingSourceFactory = { MovieDBPagingSource(dao, query) }
-//        ).liveData
+    fun insertUpdateFavouriteMovie(movie: MovieEntity) = dao.insertUpdateFavouriteMovie(movie)
 
+    fun getFavouriteTvShow(): Flow<PagingData<TvShow>> =
+        Pager(
+            config = PagingConfig(
+                pageSize = 5,
+                maxSize = 20,
+                enablePlaceholders = false
+            ),
+            pagingSourceFactory = { dao.getFavouriteTvShows() }
+        ).flow
+            .map { paging ->
+                paging.map {
+                    Mapper.entityToModel(it)
+                }
+            }
 
-//
-//    fun countAllMovies(): Int = dao.countAllMovies()
-//
-//    fun getTvShow(id: Int): Flow<TvShowEntity> = dao.getTvShow(id)
-//
-//    fun getAllTvShows(): DataSource.Factory<Int, TvShowEntity> = dao.getAllTvShows()
-//
-//    fun getFavouriteMovies(): DataSource.Factory<Int, MovieEntity> = dao.getFavouriteMovies()
-//
-//    fun getFavouriteTvShows(): DataSource.Factory<Int, TvShowEntity> = dao.getFavouriteTvShows()
-//
-//    fun insertMovies(movies: List<MovieEntity>) = dao.insertMovies(movies)
-//
-//    fun insertMovie(movie: MovieEntity) = dao.insertMovie(movie)
-//
-//    fun insertTvShows(tvshows: List<TvShowEntity>) = dao.insertTvShows(tvshows)
-//
-//    fun insertTvShow(tvshow: TvShowEntity) = dao.insertTvShow(tvshow)
-//
-//    fun update(movie: MovieEntity) = dao.update(movie)
-//
-//    fun update(tvshow: TvShowEntity) = dao.update(tvshow)
+    fun getFavouriteTvShow(id: String): Flow<TvShowEntity?> = dao.getFavouriteTvShow(id)
 
+    fun insertUpdateFavouriteTvShow(tvShow: TvShowEntity) = dao.insertUpdateFavouriteTvShow(tvShow)
 }

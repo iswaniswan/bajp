@@ -1,4 +1,4 @@
-package com.iswan.main.movflix.ui.main.movies
+package com.iswan.main.movflix.ui.fragments.tvshows
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -9,18 +9,19 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.iswan.main.movflix.R
 import com.iswan.main.movflix.data.models.Movie
+import com.iswan.main.movflix.data.models.TvShow
 import com.iswan.main.movflix.databinding.ItemMovieBinding
 import com.iswan.main.movflix.utils.Utils
 
-class MoviePagingDataAdapter
-    : PagingDataAdapter<Movie, MoviePagingDataAdapter.MovieViewHolder>(COMPARATOR) {
+class TvShowPagingDataAdapter
+    : PagingDataAdapter<TvShow, TvShowPagingDataAdapter.MovieViewHolder>(COMPARATOR) {
 
     companion object {
-        private val COMPARATOR = object : DiffUtil.ItemCallback<Movie>() {
-            override fun areItemsTheSame(oldItem: Movie, newItem: Movie): Boolean =
+        private val COMPARATOR = object : DiffUtil.ItemCallback<TvShow>() {
+            override fun areItemsTheSame(oldItem: TvShow, newItem: TvShow): Boolean =
                 oldItem.id == newItem.id
 
-            override fun areContentsTheSame(oldItem: Movie, newItem: Movie): Boolean =
+            override fun areContentsTheSame(oldItem: TvShow, newItem: TvShow): Boolean =
                 oldItem == newItem
 
         }
@@ -29,7 +30,7 @@ class MoviePagingDataAdapter
     private var iOnItemClickCallback: IOnItemClickCallback? = null
 
     interface IOnItemClickCallback {
-        fun onItemClick(movie: Movie)
+        fun onItemClick(tvShow: TvShow)
     }
 
     fun setOnItemClickCallback(iOnItemClickCallback: IOnItemClickCallback) {
@@ -39,22 +40,22 @@ class MoviePagingDataAdapter
     inner class MovieViewHolder(private val binding: ItemMovieBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(movie: Movie) {
+        fun bind(tvShow: TvShow) {
             with(binding) {
-                tvTitle.text = movie.title
-                val releaseDate =
-                    itemView.resources.getString(R.string.release_date) + " : " + movie.releaseDate
-                tvDate.text = releaseDate
+                tvTitle.text = tvShow.name
+                val firstAirDate =
+                    itemView.resources.getString(R.string.first_air_date) + " : " + tvShow.firstAirDate
+                tvDate.text = firstAirDate
                 val score =
-                    itemView.resources.getString(R.string.user_score) + " " + movie.voteAverage.toString()
+                    itemView.resources.getString(R.string.user_score) + " " + tvShow.voteAverage.toString()
                 tvScore.text = score
-                tvOverview.text = movie.overview
+                tvOverview.text = tvShow.overview
                 Glide.with(itemView.context)
-                    .load(Utils.getImagePath(1, movie.posterPath))
+                    .load(Utils.getImagePath(1, tvShow.posterPath))
                     .apply(RequestOptions.placeholderOf(R.drawable.ic_broken_image_black))
                     .into(ivBackdrop)
                 itemView.setOnClickListener {
-                    iOnItemClickCallback?.onItemClick(movie)
+                    iOnItemClickCallback?.onItemClick(tvShow)
                 }
             }
         }

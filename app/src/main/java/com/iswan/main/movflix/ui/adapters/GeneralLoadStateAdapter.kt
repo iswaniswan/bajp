@@ -1,4 +1,4 @@
-package com.iswan.main.movflix.ui.main.adapters
+package com.iswan.main.movflix.ui.adapters
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -8,9 +8,9 @@ import androidx.paging.LoadStateAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.iswan.main.movflix.databinding.MovieLoadStateBinding
 
-class MovieLoadStateAdapter(
+class GeneralLoadStateAdapter(
     private val retry: () -> Unit
-) : LoadStateAdapter<MovieLoadStateAdapter.MovieLoadStateViewHolder>() {
+) : LoadStateAdapter<GeneralLoadStateAdapter.MovieLoadStateViewHolder>() {
 
     inner class MovieLoadStateViewHolder(private val binding: MovieLoadStateBinding) :
         RecyclerView.ViewHolder(binding.root) {

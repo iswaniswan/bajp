@@ -1,5 +1,6 @@
 package com.iswan.main.movflix.utils
 
+import android.util.Log
 import android.view.View
 import com.google.android.material.snackbar.Snackbar
 import com.iswan.main.movflix.data.source.remote.rest.Config
@@ -30,9 +31,20 @@ object Utils {
         return "$ $formattedNumber"
     }
 
-    fun yearStr(yyyymmdd: String): String {
-        val timeArray = yyyymmdd.split("-".toRegex()).dropLastWhile { it.isEmpty() }
-        return timeArray[0]
+    fun currencyString(number: Long): String{
+        if (number.toInt() == 0) return "-"
+        val formatter: NumberFormat = DecimalFormat("#,###")
+        val formattedNumber: String = formatter.format(number)
+        return "$ $formattedNumber"
+    }
+
+    fun yearStr(yyyymmdd: String?): String {
+        if (yyyymmdd != null && yyyymmdd.toString().isNotEmpty()) {
+            val timeArray = yyyymmdd.split("-".toRegex()).dropLastWhile { it.isEmpty() }
+            return timeArray.get(0).toString()
+        } else {
+            return "-"
+        }
     }
 
 }

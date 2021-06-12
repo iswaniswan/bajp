@@ -16,7 +16,7 @@ data class TvShowEntity(
     @NonNull
     @PrimaryKey
     @ColumnInfo(name = "id")
-    var id: Int,
+    var id: String,
 
     @ColumnInfo(name = "backdropPath")
     var backdropPath: String,

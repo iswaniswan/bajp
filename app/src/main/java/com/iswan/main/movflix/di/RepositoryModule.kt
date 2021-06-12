@@ -36,8 +36,6 @@ class RepositoryModule {
     fun provideRepository(
         localDataSource: LocalDataSource,
         remoteDataSource: RemoteDataSource,
-        dispatcher: CoroutineDispatcher,
-        apiService: ApiService,
-        dao: MovieDao,
-    ): Repository = Repository(localDataSource, remoteDataSource, dispatcher, apiService, dao)
+        dispatcher: CoroutineDispatcher
+    ): Repository = Repository(localDataSource, remoteDataSource, dispatcher)
 }

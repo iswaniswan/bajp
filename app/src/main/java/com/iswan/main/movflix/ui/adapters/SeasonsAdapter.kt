@@ -1,4 +1,4 @@
-package com.iswan.main.movflix.ui.main.adapters
+package com.iswan.main.movflix.ui.adapters
 
 import android.view.LayoutInflater
 import android.view.ViewGroup

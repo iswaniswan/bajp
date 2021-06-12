@@ -1,29 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-<!--    <color name="purple_200">#FFBB86FC</color>-->
-<!--    <color name="purple_500">#FF6200EE</color>-->
-<!--    <color name="purple_700">#FF3700B3</color>-->
-<!--    <color name="teal_200">#FF03DAC5</color>-->
-<!--    <color name="teal_700">#FF018786</color>-->
-<!--    <color name="black">#FF000000</color>-->
-    <color name="white">#FFFFFFFF</color>
-    <color name="placeholder">#6FB6B6B6</color>
-
-    <color name="primaryColor">#607d8b</color>
-    <color name="primaryLightColor">#8eacbb</color>
-    <color name="primaryDarkColor">#34515e</color>
-    <color name="secondaryColor">#ff9800</color>
-    <color name="secondaryLightColor">#ffc947</color>
-    <color name="secondaryDarkColor">#c66900</color>
-    <color name="primaryTextColor">#ffc400</color>
-    <color name="secondaryTextColor">#37474f</color>
-
 <!--    <color name="primaryColor">#607d8b</color>-->
 <!--    <color name="primaryLightColor">#8eacbb</color>-->
 <!--    <color name="primaryDarkColor">#34515e</color>-->
-<!--    <color name="secondaryColor">#0288d1</color>-->
-<!--    <color name="secondaryLightColor">#5eb8ff</color>-->
-<!--    <color name="secondaryDarkColor">#005b9f</color>-->
-<!--    <color name="primaryTextColor">#fafafa</color>-->
-<!--    <color name="secondaryTextColor">#b0bec5</color>-->
+
+<!--    <color name="secondaryColor">#ff9800</color>-->
+<!--    <color name="secondaryLightColor">#ffc947</color>-->
+<!--    <color name="secondaryDarkColor">#c66900</color>-->
+
+<!--    <color name="primaryTextColor">#ffc400</color>-->
+<!--    <color name="secondaryTextColor">#37474f</color>-->
+
+    <color name="primaryColor">#FFC107</color>
+    <color name="primaryLightColor">#FFECB3</color>
+    <color name="primaryDarkColor">#FFA000</color>
+
+    <color name="secondaryColor">#607D8B</color>
+    <color name="secondaryLightColor">#CFD8DC</color>
+    <color name="secondaryDarkColor">#455A64</color>
+
+    <color name="primaryTextColor">#212121</color>
+    <color name="secondaryTextColor">#757575</color>
+
+    <color name="placeholder">#BDBDBD</color>
 </resources>

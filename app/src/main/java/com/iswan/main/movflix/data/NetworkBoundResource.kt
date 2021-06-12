@@ -1,65 +1,58 @@
 package com.iswan.main.movflix.data
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MediatorLiveData
-import androidx.lifecycle.asLiveData
+import android.util.Log
+import androidx.annotation.MainThread
+import androidx.annotation.WorkerThread
 import com.iswan.main.movflix.data.source.remote.rest.ApiResponse
+import com.iswan.main.movflix.data.vo.Resource
+import com.iswan.main.movflix.utils.Mapper
+import kotlinx.coroutines.*
+import kotlinx.coroutines.flow.*
+import java.lang.Exception
 
-abstract class NetworkBoundResource<ResultType, RequestType>(private val POSITION: Int?) {
+@Suppress("UNCHECKED_CAST")
+abstract class NetworkBoundResource<ResultType, RequestType>{
 
-    private val TAG = "NetworkBoundResource"
+    private val result: Flow<Resource<ResultType>> = flow {
+        emit(Resource.Loading())
+        try {
+            val dbSource = loadFromDB().firstOrNull()
+            if (shouldFetch(dbSource)) {
+                emit(Resource.Loading())
+                when(val apiResponse = createCall().first()) {
+                    is ApiResponse.Success -> {
+                        saveCallResult(apiResponse.data)
+                        emitAll(loadFromDB().map {
+                            Resource.Success(it)
+                        })
+                    }
+                    is ApiResponse.Error -> {
+                        onFetchFailed()
+                        emit(Resource.Error<ResultType>(apiResponse.message))
+                    }
 
-    private val result = MediatorLiveData<ResultType>().apply {
-            value = null
-            val dbSource = loadFromDB()
-            this.addSource(dbSource) {
-                this.removeSource(dbSource)
-                if (shouldFetch(it)) {
-                    fetchFromNetwork(dbSource)
-                } else {
-                    this.addSource(dbSource) { newData ->
-                        value = newData
+                    is ApiResponse.Empty -> {
+                        emitAll(loadFromDB().map { Resource.Success(it) })
                     }
                 }
+            } else {
+                emitAll(loadFromDB().map { Resource.Success(it) })
             }
-    }
-
-    private fun fetchFromNetwork(dbSource: LiveData<ResultType>) {
-        val apiResponse = createCall()
-
-        result.addSource(apiResponse) { response ->
-            result.removeSource(apiResponse)
-            result.removeSource(dbSource)
-
-            when(response) {
-                is ApiResponse.Success -> {
-                    saveCallResult(response.data)
-                    result.addSource(loadFromDB()) {
-                        result.value = it
-                    }
-                }
-                is ApiResponse.Empty -> {
-                    result.addSource(loadFromDB()) {
-                        result.value = it
-                    }
-                }
-                is ApiResponse.Error -> {
-                    result.addSource(dbSource) {
-                        result.value = it
-                    }
-                }
-            }
+        } catch (e: Exception) {
+            println(e.message)
         }
-    }
+    } as Flow<Resource<ResultType>>
 
-    protected abstract fun saveCallResult(data: RequestType)
-
-    protected abstract fun createCall(): LiveData<ApiResponse<RequestType>>
+    protected abstract fun loadFromDB(): Flow<ResultType?>
 
     protected abstract fun shouldFetch(data: ResultType?): Boolean
 
-    protected abstract fun loadFromDB(): LiveData<ResultType>
+    protected abstract suspend fun createCall(): Flow<ApiResponse<RequestType>>
 
-    fun asLiveData(): LiveData<ResultType> = result
+    protected abstract suspend fun saveCallResult(data: RequestType)
+
+    protected open fun onFetchFailed() { }
+
+    fun asFlow(): Flow<Resource<ResultType>> = result
 
 }

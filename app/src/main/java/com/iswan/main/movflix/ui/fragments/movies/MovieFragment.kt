@@ -1,38 +1,40 @@
-package com.iswan.main.movflix.ui.main.movies
+package com.iswan.main.movflix.ui.fragments.movies
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.*
+import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.paging.LoadState
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.iswan.main.movflix.R
 import com.iswan.main.movflix.data.models.Movie
 import com.iswan.main.movflix.databinding.FragmentMovieBinding
+import com.iswan.main.movflix.ui.adapters.GeneralLoadStateAdapter
 import com.iswan.main.movflix.ui.detail.movie.DetailMovieActivity
-import com.iswan.main.movflix.ui.main.adapters.MovieLoadStateAdapter
+import com.iswan.main.movflix.ui.fragments.tvshows.TvshowsFragment
+import com.iswan.main.movflix.ui.main.MainActivity
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.collectLatest
-import kotlinx.coroutines.flow.distinctUntilChangedBy
-import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+
 
 @AndroidEntryPoint
-class MovieFragment() : Fragment() {
+class MovieFragment : Fragment() {
 
-    companion object {
-        private const val LAST_SEARCH_QUERY: String = "last_search_query"
-        private const val DEFAULT_QUERY = ""
-    }
-
+    private val viewModel: MoviesViewModel by viewModels()
     private lateinit var binding: FragmentMovieBinding
     private lateinit var movieAdapter : MoviePagingDataAdapter
-    private val viewModel: MoviesViewModel by viewModels()
+    private lateinit var searchView: SearchView
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -45,14 +47,59 @@ class MovieFragment() : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        initAdapter()
+
+        val isMainActivity =
+            requireActivity()::class.java.simpleName == MainActivity::class.java.simpleName
+
+        if (isMainActivity) {
+            viewModel.search("")
+            viewModel.movies.observe(viewLifecycleOwner, {
+                lifecycleScope.launch {
+                    movieAdapter.submitData(it)
+                }
+            })
+            setHasOptionsMenu(true)
+        } else {
+            getFavourites()
+        }
+
+        binding.swipeLayout.setOnRefreshListener(swipeListener(isMainActivity))
+    }
+
+    private fun swipeListener(state: Boolean) = object : SwipeRefreshLayout.OnRefreshListener {
+        override fun onRefresh() {
+            if (state) {
+                (activity as MainActivity).backArrow()
+                viewModel.search("")
+                searchView.apply {
+                    setQuery("", false)
+                    isIconified = true
+                    isIconified = true
+                    onActionViewCollapsed()
+                }
+            }
+            binding.swipeLayout.isRefreshing = false
+        }
+    }
+
+    private fun getFavourites() {
+        viewModel.favourites.observe(viewLifecycleOwner, {
+            lifecycleScope.launch {
+                movieAdapter.submitData(it)
+            }
+        })
+    }
+
+    private fun initAdapter() {
         movieAdapter = MoviePagingDataAdapter()
 
         with(binding.rvMovies) {
             setHasFixedSize(true)
 
             adapter = movieAdapter.withLoadStateHeaderAndFooter(
-                header = MovieLoadStateAdapter { movieAdapter.retry() },
-                footer = MovieLoadStateAdapter { movieAdapter.retry() }
+                header = GeneralLoadStateAdapter { movieAdapter.retry() },
+                footer = GeneralLoadStateAdapter { movieAdapter.retry() }
             )
 
             binding.btnLoadRetry.setOnClickListener {
@@ -82,7 +129,7 @@ class MovieFragment() : Fragment() {
                 val initialization = refresh is LoadState.Loading
 
                 binding.apply {
-                    rvMovies.isVisible = !empty
+                    rvMovies.isVisible = !empty && refresh is LoadState.NotLoading
                     progressBarMovies.isVisible = initialization
                     tvLoadError.isVisible = refresh is LoadState.Error
                     btnLoadRetry.isVisible = refresh is LoadState.Error
@@ -90,43 +137,19 @@ class MovieFragment() : Fragment() {
                 }
             }
         }
-
-        val query = savedInstanceState?.getString(LAST_SEARCH_QUERY) ?: DEFAULT_QUERY
-        search(query)
-
-        lifecycleScope.launch {
-            movieAdapter.loadStateFlow
-                .distinctUntilChangedBy { it.source.refresh }
-                .filter { it.source.refresh is LoadState.NotLoading }
-                .collect { binding.rvMovies.scrollToPosition(0) }
-        }
-
-        setHasOptionsMenu(true)
-    }
-
-    private var searchJob: Job? = null
-
-    private fun search(query: String) {
-        searchJob?.cancel()
-        searchJob = viewLifecycleOwner.lifecycleScope.launch {
-            viewModel.search(query).collectLatest {
-                movieAdapter.submitData(it)
-            }
-        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         super.onCreateOptionsMenu(menu, inflater)
-        inflater.inflate(R.menu.top_menu, menu)
-
+        inflater.inflate(R.menu.menu_main, menu)
         val searchItem = menu.findItem(R.id.action_search)
-        val searchView = searchItem.actionView as SearchView
+        searchView = searchItem.actionView as SearchView
 
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
                 if (query != null) {
                     binding.rvMovies.scrollToPosition(0)
-                    search(query)
+                    viewModel.search(query)
                     searchView.clearFocus()
                 }
                 return true
@@ -134,6 +157,7 @@ class MovieFragment() : Fragment() {
 
             override fun onQueryTextChange(newText: String?): Boolean = true
         })
+
     }
 
 }
