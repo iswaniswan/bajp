@@ -1,7 +1,6 @@
 package com.iswan.main.movflix.di
 
 import com.iswan.main.movflix.data.Repository
-import com.iswan.main.movflix.data.source.RemoteDataSource
 import com.iswan.main.movflix.data.source.local.LocalDataSource
 import com.iswan.main.movflix.data.source.local.database.MovieDao
 import com.iswan.main.movflix.data.source.remote.rest.ApiService
@@ -24,18 +23,13 @@ class RepositoryModule {
 
     @Singleton
     @Provides
-    fun provideRemoteDataSource(apiService: ApiService): RemoteDataSource =
-        RemoteDataSource(apiService)
-
-    @Singleton
-    @Provides
     fun provideDispatcher(): CoroutineDispatcher = Dispatchers.IO
 
     @Singleton
     @Provides
     fun provideRepository(
         localDataSource: LocalDataSource,
-        remoteDataSource: RemoteDataSource,
+        apiService: ApiService,
         dispatcher: CoroutineDispatcher
-    ): Repository = Repository(localDataSource, remoteDataSource, dispatcher)
+    ): Repository = Repository(localDataSource, apiService, dispatcher)
 }

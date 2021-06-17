@@ -8,7 +8,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.iswan.main.movflix.R
-import com.iswan.main.movflix.data.models.Movie
 import com.iswan.main.movflix.data.models.TvShow
 import com.iswan.main.movflix.databinding.ItemMovieBinding
 import com.iswan.main.movflix.utils.Utils

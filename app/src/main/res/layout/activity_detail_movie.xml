@@ -20,6 +20,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
             android:background="@android:color/white"
+            tools:visibility="visible"
             android:elevation="2dp"
             android:layout_width="0dp"
             android:layout_height="0dp">
@@ -28,12 +29,9 @@
                 android:id="@+id/progress_bar"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="64dp"
+                android:layout_marginTop="100dp"
                 android:layout_gravity="center_horizontal"
-                app:layout_constraintBottom_toBottomOf="@id/frame_loading"
-                app:layout_constraintEnd_toEndOf="@id/frame_loading"
-                app:layout_constraintStart_toStartOf="@id/frame_loading"
-                app:layout_constraintTop_toTopOf="@id/frame_loading" />
+                tools:visibility="visible" />
 
         </FrameLayout>
 
@@ -48,7 +46,7 @@
             app:layout_constraintBottom_toTopOf="@id/tv_title"
             android:adjustViewBounds="true"
             android:scaleType="fitXY"
-            android:src="@drawable/ic_broken_image_black"
+            android:src="@drawable/bg_img_thumbnail"
             android:contentDescription="@string/backdrop" />
 
         <TextView

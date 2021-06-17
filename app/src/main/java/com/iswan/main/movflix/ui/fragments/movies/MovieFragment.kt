@@ -2,10 +2,7 @@ package com.iswan.main.movflix.ui.fragments.movies
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.*
-import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
@@ -18,14 +15,9 @@ import com.iswan.main.movflix.data.models.Movie
 import com.iswan.main.movflix.databinding.FragmentMovieBinding
 import com.iswan.main.movflix.ui.adapters.GeneralLoadStateAdapter
 import com.iswan.main.movflix.ui.detail.movie.DetailMovieActivity
-import com.iswan.main.movflix.ui.fragments.tvshows.TvshowsFragment
 import com.iswan.main.movflix.ui.main.MainActivity
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.Job
-import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 
 
 @AndroidEntryPoint
@@ -33,7 +25,7 @@ class MovieFragment : Fragment() {
 
     private val viewModel: MoviesViewModel by viewModels()
     private lateinit var binding: FragmentMovieBinding
-    private lateinit var movieAdapter : MoviePagingDataAdapter
+    private lateinit var movieAdapter: MoviePagingDataAdapter
     private lateinit var searchView: SearchView
 
     override fun onCreateView(
@@ -53,12 +45,7 @@ class MovieFragment : Fragment() {
             requireActivity()::class.java.simpleName == MainActivity::class.java.simpleName
 
         if (isMainActivity) {
-            viewModel.search("")
-            viewModel.movies.observe(viewLifecycleOwner, {
-                lifecycleScope.launch {
-                    movieAdapter.submitData(it)
-                }
-            })
+            getTrendings()
             setHasOptionsMenu(true)
         } else {
             getFavourites()
@@ -81,6 +68,15 @@ class MovieFragment : Fragment() {
             }
             binding.swipeLayout.isRefreshing = false
         }
+    }
+
+    private fun getTrendings() {
+        viewModel.search("")
+        viewModel.movies.observe(viewLifecycleOwner, {
+            lifecycleScope.launch {
+                movieAdapter.submitData(it)
+            }
+        })
     }
 
     private fun getFavourites() {
@@ -130,7 +126,7 @@ class MovieFragment : Fragment() {
 
                 binding.apply {
                     rvMovies.isVisible = !empty && refresh is LoadState.NotLoading
-                    progressBarMovies.isVisible = initialization
+                    progressBar.isVisible = initialization
                     tvLoadError.isVisible = refresh is LoadState.Error
                     btnLoadRetry.isVisible = refresh is LoadState.Error
                     tvNotFound.isVisible = notFound

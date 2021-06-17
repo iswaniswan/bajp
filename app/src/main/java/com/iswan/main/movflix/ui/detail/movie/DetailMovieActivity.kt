@@ -1,7 +1,6 @@
 package com.iswan.main.movflix.ui.detail.movie
 
 import android.os.Bundle
-import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import androidx.activity.viewModels
@@ -129,7 +128,7 @@ class DetailMovieActivity : AppCompatActivity() {
         with(binding) {
             Glide.with(this@DetailMovieActivity)
                 .load(Utils.getImagePath(2, movie?.posterPath.toString()))
-                .apply(RequestOptions.placeholderOf(R.drawable.ic_broken_image_black))
+                .apply(RequestOptions.placeholderOf(R.drawable.bg_img_thumbnail))
                 .into(ivBackdrop)
             tvTitle.text = movie?.title
             val releaseDate = getString(R.string.release_date) + " " + movie?.releaseDate

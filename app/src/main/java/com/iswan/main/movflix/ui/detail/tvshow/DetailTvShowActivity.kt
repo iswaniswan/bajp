@@ -22,13 +22,13 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.*
 
 @AndroidEntryPoint
-class DetailTvActivity : AppCompatActivity() {
+class DetailTvShowActivity : AppCompatActivity() {
 
     companion object {
         const val EXTRA_ID = "extra_id"
     }
 
-    private val viewModel: DetailTvViewModel by viewModels()
+    private val showViewModel: DetailTvShowViewModel by viewModels()
     private lateinit var binding: ActivityDetailTvBinding
     private lateinit var companiesAdapter: CompaniesAdapter
     private lateinit var seasonsAdapter: SeasonsAdapter
@@ -50,11 +50,11 @@ class DetailTvActivity : AppCompatActivity() {
             elevation = 0f
             title = getString(R.string.tvshow_detail)
             setBackgroundDrawable(ContextCompat.getDrawable(
-                this@DetailTvActivity, R.drawable.bg_secondary))
+                this@DetailTvShowActivity, R.drawable.bg_secondary))
         }
 
-        viewModel.getTvShow(mId.toString())
-        viewModel.tvShow.observe(this, {
+        showViewModel.getTvShow(mId.toString())
+        showViewModel.tvShow.observe(this, {
             when (it) {
                 is Resource.Success -> {
                     tvShow = it.data
@@ -93,11 +93,11 @@ class DetailTvActivity : AppCompatActivity() {
         val actionFavourite = menu?.findItem(R.id.action_favourite)
         if (state) {
             actionFavourite?.icon = ContextCompat.getDrawable(
-                this@DetailTvActivity, R.drawable.ic_favourite_custom
+                this@DetailTvShowActivity, R.drawable.ic_favourite_custom
             )
         } else {
             actionFavourite?.icon = ContextCompat.getDrawable(
-                this@DetailTvActivity, R.drawable.ic_favourite_border_custom
+                this@DetailTvShowActivity, R.drawable.ic_favourite_border_custom
             )
         }
     }
@@ -114,7 +114,7 @@ class DetailTvActivity : AppCompatActivity() {
     private fun toggleFavourite(): Boolean {
         return if (tvShow != null) {
             tvShow?.let {
-                viewModel.insertUpdateFavourite(it)
+                showViewModel.insertUpdateFavourite(it)
             }
             true
         } else false
@@ -135,9 +135,9 @@ class DetailTvActivity : AppCompatActivity() {
             setFavouriteState(it)
         }
         with(binding) {
-            Glide.with(this@DetailTvActivity)
+            Glide.with(this@DetailTvShowActivity)
                 .load(Utils.getImagePath(2, tvShow?.posterPath.toString()))
-                .apply(RequestOptions.placeholderOf(R.drawable.ic_broken_image_black))
+                .apply(RequestOptions.placeholderOf(R.drawable.bg_img_thumbnail))
                 .into(ivBackdrop)
             tvTitle.text = tvShow?.name
             val genres = getString(R.string.genres) + " " + tvShow?.genres?.concatName()
@@ -158,7 +158,7 @@ class DetailTvActivity : AppCompatActivity() {
 
         with(binding) {
             rvSeasons.layoutManager =
-                LinearLayoutManager(this@DetailTvActivity, LinearLayoutManager.HORIZONTAL, false)
+                LinearLayoutManager(this@DetailTvShowActivity, LinearLayoutManager.HORIZONTAL, false)
             rvSeasons.setHasFixedSize(true)
             rvSeasons.adapter = seasonsAdapter
         }
@@ -168,7 +168,7 @@ class DetailTvActivity : AppCompatActivity() {
 
         with(binding) {
             rvCompanies.layoutManager =
-                LinearLayoutManager(this@DetailTvActivity, LinearLayoutManager.HORIZONTAL, false)
+                LinearLayoutManager(this@DetailTvShowActivity, LinearLayoutManager.HORIZONTAL, false)
             rvCompanies.setHasFixedSize(true)
             rvCompanies.adapter = companiesAdapter
         }

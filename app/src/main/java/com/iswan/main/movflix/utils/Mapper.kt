@@ -4,22 +4,21 @@ import com.iswan.main.movflix.data.models.*
 import com.iswan.main.movflix.data.source.local.entity.MovieEntity
 import com.iswan.main.movflix.data.source.local.entity.TvShowEntity
 import com.iswan.main.movflix.data.source.remote.response.*
-import kotlinx.coroutines.flow.emptyFlow
 
 object Mapper {
 
-    private val Int.safe: Int get() = (this ?: 0)
+    private val Int?.safe: Int get() = (this ?: 0)
 
     private val String?.safe: String get() = (this ?: "")
 
-    private val Double.safe: Double get() = (this ?: 0.0)
+    private val Double?.safe: Double get() = (this ?: 0.0)
 
-    private val Long.safe: Long get() = (this ?: 0)
+    private val Long?.safe: Long get() = (this ?: 0)
 
-    private val List<GenresItem>.toGenres: ArrayList<Genre>
+    private val List<GenresItem>?.toGenres: ArrayList<Genre>
         get() {
             val list = ArrayList<Genre>()
-            this.map {
+            this?.map {
                 list.add(
                     Genre(it.id, it.name)
                 )
@@ -27,10 +26,10 @@ object Mapper {
             return list
         }
 
-    private val List<ProductionCompaniesItem>.toCompanies: ArrayList<Company>
+    private val List<ProductionCompaniesItem>?.toCompanies: ArrayList<Company>
         get() {
             val list = ArrayList<Company>()
-            this.map {
+            this?.map {
                 list.add(
                     Company(
                         it.id, it.logoPath.safe, it.name, it.originCountry.safe
@@ -40,10 +39,10 @@ object Mapper {
             return list
         }
 
-    private val List<SeasonsItem>.toSeasons: ArrayList<Season>
+    private val List<SeasonsItem>?.toSeasons: ArrayList<Season>
         get() {
             val seasons = ArrayList<Season>()
-            this.map {
+            this?.map {
                 seasons.add(
                     Season(
                         it.airDate.safe,
@@ -92,7 +91,7 @@ object Mapper {
             mDetail.originalLanguage.safe,
             mDetail.originalTitle.safe,
             mDetail.overview.safe,
-            mDetail.popularity,
+            mDetail.popularity.safe,
             mDetail.posterPath.safe,
             mDetail.productionCompanies.toCompanies,
             mDetail.releaseDate.safe,
@@ -101,8 +100,8 @@ object Mapper {
             mDetail.status.safe,
             mDetail.tagline.safe,
             mDetail.title.safe,
-            mDetail.voteAverage,
-            mDetail.voteCount,
+            mDetail.voteAverage.safe,
+            mDetail.voteCount.safe,
             false
         )
     }
@@ -110,54 +109,27 @@ object Mapper {
     fun responseToModel(tDetail: TvShowDetailResponse): TvShowDetail {
         return TvShowDetail(
             tDetail.backdropPath.safe,
-            if (tDetail.episodeRunTime.isNotEmpty()) tDetail.episodeRunTime.get(0) else 0,
+            tDetail.episodeRunTime?.get(0).safe,
             tDetail.firstAirDate.safe,
             tDetail.genres.toGenres,
             tDetail.homepage.safe,
             tDetail.id.toString(),
             tDetail.lastAirDate.safe,
             tDetail.name.safe,
-            tDetail.numberOfSeasons,
+            tDetail.numberOfSeasons.safe,
             tDetail.originalLanguage.safe,
             tDetail.overview.safe,
-            tDetail.popularity,
+            tDetail.popularity.safe,
             tDetail.posterPath.safe,
             tDetail.productionCompanies.toCompanies,
             tDetail.seasons.toSeasons,
             tDetail.status.safe,
             tDetail.tagline.safe,
-            tDetail.voteAverage,
-            tDetail.voteCount,
+            tDetail.voteAverage.safe,
+            tDetail.voteCount.safe,
             false
         )
     }
-
-//    fun modelToEntity(movie: MovieDetail): MovieEntity {
-//        return MovieEntity(
-//            0,
-//            movie.id,
-//            movie.adult,
-//            movie.backdropPath,
-//            movie.budget,
-//            movie.genres,
-//            movie.homepage,
-//            movie.originalLanguage,
-//            movie.originalTitle,
-//            movie.overview,
-//            movie.popularity,
-//            movie.posterPath,
-//            movie.productionCompanies,
-//            movie.releaseDate,
-//            movie.revenue,
-//            movie.runtime,
-//            movie.status,
-//            movie.tagline,
-//            movie.title,
-//            movie.voteAverage,
-//            movie.voteCount,
-//            movie.isFavourite,
-//        )
-//    }
 
     fun modelToEntity(movie: MovieDetail): MovieEntity {
         return MovieEntity(
@@ -283,33 +255,6 @@ object Mapper {
         )
     }
 
-//    fun responseToEntity(movie: MovieResponse): MovieEntity {
-//        return MovieEntity(
-//            0,
-//            movie.id,
-//            false,
-//            "",
-//            0,
-//            arrayListOf(),
-//            "",
-//            "",
-//            "",
-//            movie.overview.safe,
-//            0.0,
-//            movie.posterPath.safe,
-//            arrayListOf(),
-//            movie.releaseDate.safe,
-//            0,
-//            0,
-//            "",
-//            "",
-//            movie.title.safe,
-//            movie.voteAverage,
-//            0,
-//            false
-//        )
-//    }
-
     fun responseToEntity(movie: MovieResponse): MovieEntity {
         return MovieEntity(
             movie.id.toString(),
@@ -365,24 +310,24 @@ object Mapper {
         return MovieEntity(
             movie.id.toString(),
             movie.adult,
-            movie.backdropPath,
-            movie.budget,
+            movie.backdropPath.safe,
+            movie.budget.safe,
             movie.genres.toGenres,
-            movie.homepage,
-            movie.originalLanguage,
-            movie.originalTitle,
-            movie.overview,
-            movie.popularity,
-            movie.posterPath,
+            movie.homepage.safe,
+            movie.originalLanguage.safe,
+            movie.originalTitle.safe,
+            movie.overview.safe,
+            movie.popularity.safe,
+            movie.posterPath.safe,
             movie.productionCompanies.toCompanies,
-            movie.releaseDate,
-            movie.revenue,
-            movie.runtime,
-            movie.status,
-            movie.tagline,
-            movie.title,
-            movie.voteAverage,
-            movie.voteCount,
+            movie.releaseDate.safe,
+            movie.revenue.safe,
+            movie.runtime.safe,
+            movie.status.safe,
+            movie.tagline.safe,
+            movie.title.safe,
+            movie.voteAverage.safe,
+            movie.voteCount.safe,
             false
         )
     }
@@ -390,24 +335,24 @@ object Mapper {
     fun responseToEntity(tvshow: TvShowDetailResponse): TvShowEntity {
         return TvShowEntity(
             tvshow.id.toString(),
-            tvshow.backdropPath,
-            tvshow.episodeRunTime?.get(0) ?: 0,
-            tvshow.firstAirDate,
+            tvshow.backdropPath.safe,
+            tvshow.episodeRunTime?.get(0).safe,
+            tvshow.firstAirDate.safe,
             tvshow.genres.toGenres,
-            tvshow.homepage,
-            tvshow.lastAirDate,
+            tvshow.homepage.safe,
+            tvshow.lastAirDate.safe,
             tvshow.name,
-            tvshow.numberOfSeasons,
-            tvshow.originalLanguage,
-            tvshow.overview,
-            tvshow.popularity,
-            tvshow.posterPath,
+            tvshow.numberOfSeasons.safe,
+            tvshow.originalLanguage.safe,
+            tvshow.overview.safe,
+            tvshow.popularity.safe,
+            tvshow.posterPath.safe,
             tvshow.productionCompanies.toCompanies,
             tvshow.seasons.toSeasons,
-            tvshow.status,
-            tvshow.tagline,
-            tvshow.voteAverage,
-            tvshow.voteCount,
+            tvshow.status.safe,
+            tvshow.tagline.safe,
+            tvshow.voteAverage.safe,
+            tvshow.voteCount.safe,
             false
         )
     }

@@ -1,7 +1,7 @@
 package com.iswan.main.movflix.di
 
-import com.iswan.main.movflix.data.source.remote.rest.Config
 import com.iswan.main.movflix.data.source.remote.rest.ApiService
+import com.iswan.main.movflix.data.source.remote.rest.Config
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

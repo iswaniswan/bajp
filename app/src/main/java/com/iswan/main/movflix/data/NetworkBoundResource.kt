@@ -1,14 +1,8 @@
 package com.iswan.main.movflix.data
 
-import android.util.Log
-import androidx.annotation.MainThread
-import androidx.annotation.WorkerThread
 import com.iswan.main.movflix.data.source.remote.rest.ApiResponse
 import com.iswan.main.movflix.data.vo.Resource
-import com.iswan.main.movflix.utils.Mapper
-import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.*
-import java.lang.Exception
 
 @Suppress("UNCHECKED_CAST")
 abstract class NetworkBoundResource<ResultType, RequestType>{

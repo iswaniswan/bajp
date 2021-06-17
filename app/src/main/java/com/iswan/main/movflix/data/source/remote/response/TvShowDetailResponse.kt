@@ -8,62 +8,61 @@ import kotlinx.parcelize.Parcelize
 data class TvShowDetailResponse(
 
 	@field:SerializedName("backdrop_path")
-	val backdropPath: String,
+	val backdropPath: String?,
 
 	@field:SerializedName("episode_run_time")
-	val episodeRunTime: List<Int>,
+	val episodeRunTime: List<Int>?,
 
 	@field:SerializedName("first_air_date")
-	val firstAirDate: String,
+	val firstAirDate: String?,
 
 	@field:SerializedName("genres")
-	val genres: List<GenresItem>,
+	val genres: List<GenresItem>?,
 
 	@field:SerializedName("homepage")
-	val homepage: String,
+	val homepage: String?,
 
 	@field:SerializedName("id")
 	val id: Int,
 
 	@field:SerializedName("last_air_date")
-	val lastAirDate: String,
+	val lastAirDate: String?,
 
 	@field:SerializedName("name")
 	val name: String,
 
 	@field:SerializedName("number_of_seasons")
-	val numberOfSeasons: Int,
+	val numberOfSeasons: Int?,
 
 	@field:SerializedName("original_language")
-	val originalLanguage: String,
+	val originalLanguage: String?,
 
 	@field:SerializedName("overview")
-	val overview: String,
+	val overview: String?,
 
 	@field:SerializedName("popularity")
-	val popularity: Double,
+	val popularity: Double?,
 
 	@field:SerializedName("poster_path")
-	val posterPath: String,
+	val posterPath: String?,
 
 	@field:SerializedName("production_companies")
-	val productionCompanies: List<ProductionCompaniesItem>,
+	val productionCompanies: List<ProductionCompaniesItem>?,
 
 	@field:SerializedName("seasons")
-	val seasons: List<SeasonsItem>,
+	val seasons: List<SeasonsItem>?,
 
 	@field:SerializedName("status")
-	val status: String,
+	val status: String?,
 
 	@field:SerializedName("tagline")
-	val tagline: String,
+	val tagline: String?,
 
 	@field:SerializedName("vote_average")
-	val voteAverage: Double,
+	val voteAverage: Double?,
 
 	@field:SerializedName("vote_count")
-	val voteCount: Int
-
+	val voteCount: Int?
 ): Parcelable
 
 

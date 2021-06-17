@@ -6,9 +6,7 @@ import androidx.paging.cachedIn
 import com.iswan.main.movflix.data.Repository
 import com.iswan.main.movflix.data.models.Movie
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 

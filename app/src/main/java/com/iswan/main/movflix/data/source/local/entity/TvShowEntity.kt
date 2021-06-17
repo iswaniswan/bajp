@@ -29,7 +29,7 @@ data class TvShowEntity(
 
     @TypeConverters(Converters::class)
     @ColumnInfo(name = "genres")
-    var genres: ArrayList<Genre>,
+    var genres: List<Genre>,
 
     @ColumnInfo(name = "homepage")
     var homepage: String,
@@ -57,11 +57,11 @@ data class TvShowEntity(
 
     @TypeConverters(Converters::class)
     @ColumnInfo(name = "productionCompanies")
-    var productionCompanies: ArrayList<Company>,
+    var productionCompanies: List<Company>,
 
     @TypeConverters(Converters::class)
     @ColumnInfo(name = "seasons")
-    var seasons: ArrayList<Season>,
+    var seasons: List<Season>,
 
     @ColumnInfo(name = "status")
     var status: String,

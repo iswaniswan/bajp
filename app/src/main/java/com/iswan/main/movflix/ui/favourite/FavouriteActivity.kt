@@ -1,7 +1,7 @@
 package com.iswan.main.movflix.ui.favourite
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import com.iswan.main.movflix.R
 import com.iswan.main.movflix.databinding.ActivityFavouriteBinding
 import com.iswan.main.movflix.ui.adapters.SectionPagerAdapter

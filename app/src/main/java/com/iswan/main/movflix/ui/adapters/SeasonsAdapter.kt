@@ -13,11 +13,10 @@ import com.iswan.main.movflix.utils.Utils
 class SeasonsAdapter:
     RecyclerView.Adapter<SeasonsAdapter.SeasonsViewHolder>() {
 
-    private val seasons = ArrayList<Season>()
+    private var seasons = listOf<Season>()
 
-    fun setData(seasons: ArrayList<Season>) {
-        this.seasons.clear()
-        this.seasons.addAll(seasons)
+    fun setData(seasons: List<Season>) {
+        this.seasons = seasons
         this.notifyDataSetChanged()
     }
 

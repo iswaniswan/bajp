@@ -8,41 +8,41 @@ import com.iswan.main.movflix.data.models.Genre
 import com.iswan.main.movflix.data.models.Season
 
 class Converters {
-    val gson = Gson()
+    private val gson = Gson()
 
     @TypeConverter
-    fun genresToString(value: ArrayList<Genre>): String? {
+    fun genresToString(value: List<Genre>): String? {
         return gson.toJson(value)
     }
 
     @TypeConverter
-    fun stringToGenres(data: String?): ArrayList<Genre?>? {
+    fun stringToGenres(data: String?): List<Genre?>? {
         if (data == null) return arrayListOf()
-        val listType = object : TypeToken<ArrayList<Genre?>?>() {}.type
-        return gson.fromJson<ArrayList<Genre?>>(data, listType)
+        val listType = object : TypeToken<List<Genre?>?>() {}.type
+        return gson.fromJson<List<Genre?>>(data, listType)
     }
 
     @TypeConverter
-    fun companiesToString(value: ArrayList<Company>): String? {
+    fun companiesToString(value: List<Company>): String? {
         return gson.toJson(value)
     }
 
     @TypeConverter
-    fun stringToCompanies(data: String?): ArrayList<Company?>? {
+    fun stringToCompanies(data: String?): List<Company?>? {
         if (data == null) return arrayListOf()
-        val listType = object : TypeToken<ArrayList<Company?>?>() {}.type
-        return gson.fromJson<ArrayList<Company?>>(data, listType)
+        val listType = object : TypeToken<List<Company?>?>() {}.type
+        return gson.fromJson<List<Company?>>(data, listType)
     }
 
     @TypeConverter
-    fun seasonsToString(value: ArrayList<Season>): String? {
+    fun seasonsToString(value: List<Season>): String? {
         return gson.toJson(value)
     }
 
     @TypeConverter
-    fun stringToSeasons(data: String?): ArrayList<Season?>? {
+    fun stringToSeasons(data: String?): List<Season?>? {
         if (data == null) return arrayListOf()
-        val listType = object : TypeToken<ArrayList<Season?>?>() {}.type
-        return gson.fromJson<ArrayList<Season?>>(data, listType)
+        val listType = object : TypeToken<List<Season?>?>() {}.type
+        return gson.fromJson<List<Season?>>(data, listType)
     }
 }

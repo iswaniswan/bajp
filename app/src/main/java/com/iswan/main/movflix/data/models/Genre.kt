@@ -9,7 +9,7 @@ data class Genre (
     val name : String
 ) : Parcelable
 
-fun ArrayList<Genre>.concatName() =
+fun List<Genre>.concatName() =
     this.joinToString(", ") {
         it.name
     }

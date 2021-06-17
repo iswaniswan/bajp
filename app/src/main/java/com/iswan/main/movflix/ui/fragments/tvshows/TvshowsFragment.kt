@@ -2,7 +2,6 @@ package com.iswan.main.movflix.ui.fragments.tvshows
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.*
 import androidx.appcompat.widget.SearchView
 import androidx.core.view.isVisible
@@ -16,20 +15,13 @@ import com.iswan.main.movflix.data.models.TvShow
 import com.iswan.main.movflix.databinding.FragmentTvshowBinding
 import com.iswan.main.movflix.ui.adapters.GeneralLoadStateAdapter
 import com.iswan.main.movflix.ui.detail.movie.DetailMovieActivity
-import com.iswan.main.movflix.ui.detail.tvshow.DetailTvActivity
+import com.iswan.main.movflix.ui.detail.tvshow.DetailTvShowActivity
 import com.iswan.main.movflix.ui.main.MainActivity
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.Job
-import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class TvshowsFragment : Fragment() {
-
-    companion object {
-        private const val LAST_SEARCH_QUERY: String = "last_search_query"
-        private const val DEFAULT_QUERY = ""
-    }
 
     private lateinit var binding: FragmentTvshowBinding
     private lateinit var tvAdapter: TvShowPagingDataAdapter
@@ -52,8 +44,7 @@ class TvshowsFragment : Fragment() {
             requireActivity()::class.java.simpleName == MainActivity::class.java.simpleName
 
         if (isMainActivity) {
-            val query = savedInstanceState?.getString(LAST_SEARCH_QUERY) ?: DEFAULT_QUERY
-            search(query)
+            getTrendings()
             setHasOptionsMenu(true)
         } else {
             getFavourites()
@@ -66,9 +57,8 @@ class TvshowsFragment : Fragment() {
     private fun swipeListener(state: Boolean) = object : SwipeRefreshLayout.OnRefreshListener {
         override fun onRefresh() {
             if (state) {
-                Log.d(TAG, "onRefresh: LAYOUT SWIPE")
                 (activity as MainActivity).backArrow()
-                search("")
+                viewModel.search("")
                 searchView.apply {
                     setQuery("", false)
                     isIconified = true
@@ -80,14 +70,21 @@ class TvshowsFragment : Fragment() {
         }
     }
 
-    private val TAG = "TvShowsFragment"
-
-    private fun getFavourites() {
-        viewLifecycleOwner.lifecycleScope.launch {
-            viewModel.getFavourites().collectLatest {
+    private fun getTrendings() {
+        viewModel.search("")
+        viewModel.tvShows.observe(viewLifecycleOwner, {
+            lifecycleScope.launch {
                 tvAdapter.submitData(it)
             }
-        }
+        })
+    }
+
+    private fun getFavourites() {
+        viewModel.favourites.observe(viewLifecycleOwner, {
+            lifecycleScope.launch {
+                tvAdapter.submitData(it)
+            }
+        })
     }
 
     private fun initAdapter() {
@@ -109,7 +106,7 @@ class TvshowsFragment : Fragment() {
 
         tvAdapter.setOnItemClickCallback(object : TvShowPagingDataAdapter.IOnItemClickCallback {
             override fun onItemClick(tvShow: TvShow) {
-                val intent = Intent(requireActivity(), DetailTvActivity::class.java)
+                val intent = Intent(requireActivity(), DetailTvShowActivity::class.java)
                 intent.putExtra(DetailMovieActivity.EXTRA_ID, tvShow.id)
                 startActivity(intent)
             }
@@ -129,22 +126,11 @@ class TvshowsFragment : Fragment() {
 
                 binding.apply {
                     rvTvshow.isVisible = !empty && refresh is LoadState.NotLoading
-                    progressBarMovies.isVisible = initialization
+                    progressBar.isVisible = initialization
                     tvLoadError.isVisible = refresh is LoadState.Error
                     btnLoadRetry.isVisible = refresh is LoadState.Error
                     tvNotFound.isVisible = notFound
                 }
-            }
-        }
-    }
-
-    private var searchJob: Job? = null
-
-    private fun search(query: String) {
-        searchJob?.cancel()
-        searchJob = viewLifecycleOwner.lifecycleScope.launch {
-            viewModel.search(query).collectLatest {
-                tvAdapter.submitData(it)
             }
         }
     }
@@ -160,7 +146,7 @@ class TvshowsFragment : Fragment() {
             override fun onQueryTextSubmit(query: String?): Boolean {
                 if (query != null) {
                     binding.rvTvshow.scrollToPosition(0)
-                    search(query)
+                    viewModel.search(query)
                     searchView.clearFocus()
                 }
                 return true

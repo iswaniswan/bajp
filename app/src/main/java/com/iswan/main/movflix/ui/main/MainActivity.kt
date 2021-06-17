@@ -1,8 +1,8 @@
 package com.iswan.main.movflix.ui.main
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import com.iswan.main.movflix.R
@@ -36,14 +36,14 @@ class MainActivity : AppCompatActivity() {
                 startActivity(Intent(this, FavouriteActivity::class.java))
             }
             R.id.action_about -> {
+                startActivity(Intent(this, AboutActivity::class.java))
             }
         }
         return super.onOptionsItemSelected(item)
     }
 
-    private val TAG = "MainActivity"
-
-    open fun backArrow() {
+    @SuppressLint("RestrictedApi")
+    fun backArrow() {
         supportActionBar?.collapseActionView()
     }
 }

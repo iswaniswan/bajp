@@ -13,11 +13,10 @@ import com.iswan.main.movflix.utils.Utils
 class CompaniesAdapter:
     RecyclerView.Adapter<CompaniesAdapter.CompanyViewHolder>() {
 
-    private val companies = ArrayList<Company>()
+    private var companies = listOf<Company>()
 
-    fun setData(companies: ArrayList<Company>) {
-        this.companies.clear()
-        this.companies.addAll(companies)
+    fun setData(companies: List<Company>) {
+        this.companies = companies
         this.notifyDataSetChanged()
     }
 

@@ -1,6 +1,5 @@
 package com.iswan.main.movflix.utils
 
-import android.util.Log
 import android.view.View
 import com.google.android.material.snackbar.Snackbar
 import com.iswan.main.movflix.data.source.remote.rest.Config

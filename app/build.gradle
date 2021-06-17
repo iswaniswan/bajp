@@ -73,6 +73,7 @@ dependencies {
         retrofit = '2.9.0'
         roomVersion = '2.3.0'
         swipeVersion = '1.1.0'
+        turbine = '0.5.2'
     }
 
     /* kotlin */
@@ -125,19 +126,21 @@ dependencies {
     testImplementation "junit:junit:$junitVersion"
     testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$kotlinxCoroutines"
     testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:$kotlinxCoroutines"
+    testImplementation "androidx.paging:paging-runtime:$pagingVersion"
     testImplementation "androidx.test:core-ktx:$androidTestVersion"
     testImplementation "androidx.test.ext:junit-ktx:$junitExtversion"
     testImplementation "androidx.test:runner:$androidTestVersion"
     testImplementation "androidx.test:rules:$androidTestVersion"
     testImplementation "androidx.test.espresso:espresso-core:$espressoVersion"
     testImplementation "androidx.test.espresso:espresso-contrib:$espressoVersion"
+    testImplementation "androidx.test.espresso:espresso-idling-resource:$idlingResource"
     testImplementation "androidx.arch.core:core-testing:$arch"
+    testImplementation "app.cash.turbine:turbine:$turbine"
 
     /* mockito */
     testImplementation "junit:junit:$junitVersion"
     testImplementation "org.mockito:mockito-core:$mockito"
     testImplementation "org.mockito:mockito-inline:$mockito"
-    testImplementation("com.squareup.okhttp3:mockwebserver:4.9.1")
     testImplementation "com.nhaarman.mockitokotlin2:mockito-kotlin:$mockitoKotlin"
 
     /* instrumentation test */
@@ -146,5 +149,7 @@ dependencies {
     androidTestImplementation "androidx.test.espresso:espresso-core:$espressoVersion"
     androidTestImplementation "androidx.test.espresso:espresso-contrib:$espressoVersion"
     androidTestImplementation "androidx.test.ext:junit-ktx:$junitExtversion"
+    androidTestImplementation "androidx.test.espresso:espresso-intents:$espressoVersion"
+    androidTestImplementation "androidx.test.espresso:espresso-idling-resource:$idlingResource"
 
 }

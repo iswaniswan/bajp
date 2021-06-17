@@ -5,20 +5,18 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.iswan.main.movflix.data.Repository
-import com.iswan.main.movflix.data.models.MovieDetail
 import com.iswan.main.movflix.data.models.TvShowDetail
 import com.iswan.main.movflix.data.vo.Resource
 import com.iswan.main.movflix.utils.Mapper
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 @HiltViewModel
-class DetailTvViewModel @Inject constructor(
+class DetailTvShowViewModel @Inject constructor(
     private val repository: Repository,
     private val dispatcher: CoroutineDispatcher
 ) : ViewModel() {

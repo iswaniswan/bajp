@@ -12,7 +12,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Movflix">
-        <activity android:name=".ui.favourite.FavouriteActivity"/>
+        <activity
+            android:name=".ui.main.AboutActivity"
+            android:theme="@style/dialogStyle" />
+        <activity android:name=".ui.favourite.FavouriteActivity" />
         <activity
             android:name=".ui.main.SplashScreen"
             android:theme="@style/Theme.Design.Light.NoActionBar">
@@ -23,11 +26,11 @@
             </intent-filter>
         </activity>
         <activity
-            android:theme="@style/statusBarColorSecondary"
-            android:name=".ui.detail.tvshow.DetailTvActivity" />
+            android:name=".ui.detail.tvshow.DetailTvShowActivity"
+            android:theme="@style/statusBarColorSecondary" />
         <activity
-            android:theme="@style/statusBarColorSecondary"
-            android:name=".ui.detail.movie.DetailMovieActivity" />
+            android:name=".ui.detail.movie.DetailMovieActivity"
+            android:theme="@style/statusBarColorSecondary" />
         <activity
             android:name=".ui.main.MainActivity"
             android:configChanges="orientation|screenSize|screenLayout" />

@@ -1,14 +1,13 @@
 package com.iswan.main.movflix.ui.fragments.tvshows
 
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
 import com.iswan.main.movflix.data.Repository
-import com.iswan.main.movflix.data.models.Movie
 import com.iswan.main.movflix.data.models.TvShow
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
@@ -17,24 +16,24 @@ class TvShowsViewModel @Inject constructor(
 ): ViewModel() {
 
     private var currentQueryValue: String? = null
-    private var currentSearchResult: Flow<PagingData<TvShow>>? = null
 
-    fun search(query: String): Flow<PagingData<TvShow>> {
-        val lastResult = currentSearchResult
+    private var _tvShows = MutableLiveData<PagingData<TvShow>>()
+    val tvShows: LiveData<PagingData<TvShow>> = _tvShows.cachedIn(viewModelScope)
 
-        if (query == currentQueryValue && lastResult != null) {
-            return lastResult
+    fun search(query: String) {
+        if (query == currentQueryValue) {
+            return
         }
 
         currentQueryValue = query
 
-        val newResult: Flow<PagingData<TvShow>> =
-            repository.getTvShows(query).cachedIn(viewModelScope)
-
-        currentSearchResult = newResult
-        return newResult
+        viewModelScope.launch {
+            val resultSearch = repository.getTvShows(query)
+            resultSearch.collect {
+                _tvShows.value = it
+            }
+        }
     }
 
-    fun getFavourites(): Flow<PagingData<TvShow>> = repository.getFavouriteTvShows()
-
+    val favourites : LiveData<PagingData<TvShow>> = repository.getFavouriteTvShows().asLiveData()
 }

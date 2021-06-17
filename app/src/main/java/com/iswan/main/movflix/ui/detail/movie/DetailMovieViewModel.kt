@@ -1,15 +1,16 @@
 package com.iswan.main.movflix.ui.detail.movie
 
-import androidx.lifecycle.*
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.iswan.main.movflix.data.Repository
 import com.iswan.main.movflix.data.models.MovieDetail
 import com.iswan.main.movflix.data.vo.Resource
 import com.iswan.main.movflix.utils.Mapper
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineDispatcher
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import javax.inject.Inject

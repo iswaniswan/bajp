@@ -6,10 +6,11 @@
         android:id="@+id/action_search"
         android:title="@string/action_search"
         android:icon="@drawable/ic_search"
+        android:contentDescription="@string/action_search"
+        android:visible="true"
         app:actionViewClass="androidx.appcompat.widget.SearchView"
         app:showAsAction="collapseActionView|ifRoom"
         app:iconifiedByDefault="true"
-        android:visible="true"
         />
 
     <group android:menuCategory="container">
@@ -17,14 +18,16 @@
             android:id="@+id/action_favourites"
             android:title="@string/action_favourites"
             android:icon="@drawable/ic_favorite"
+            android:contentDescription="@string/action_favourites"
             app:showAsAction="never"
             />
 
         <item
             android:id="@+id/action_about"
             android:title="@string/action_about"
-            app:showAsAction="never"
             android:icon="@drawable/ic_about"
+            android:contentDescription="@string/action_about"
+            app:showAsAction="never"
             />
 
     </group>
